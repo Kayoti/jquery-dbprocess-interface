@@ -176,11 +176,11 @@ $(document).ready(function(){
 							$("#sid_num").val(obj1.snumber);
 							$("#sid_place").val(obj1.splace);
 							$("#sid_expire").val(obj1.sexpire);
-							//dropdowns
-							
+							//status dropdowns 
 							$("#audit_emt").val(obj1.emt_id);
 							$("#audit_info").val(obj1.info_id);
 							$("#audit_contract").val(obj1.contract_id);
+							//status checkbox this.prop('checked')
 							table.ajax.reload();
 						}
 						else
