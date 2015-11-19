@@ -32,12 +32,15 @@
                                         <th>First Name</th>
                                         <th>Last Name</th>
                                         <th>Email</th>
-                                        <th>EMT Code</th>
-                                        <th>EMT Amount</th>
+                                        <th>EMT Status</th>
+                                        <th>INFO Status</th>
+                                        <th>CONTRACT Status</th>
                                         <th></th>
                                         <th></th>
                                     </tr>
                                 </thead>
+								<tbody id="tbody">
+								</tbody>
                             </table>
 						
                     </div>
@@ -94,13 +97,17 @@ $(document).ready(function(){
 									{ data: 'firstname' },  
 									{ data: 'lastname' },
 									{ data: 'email' },  
-									{ data: 'psw' },  
-									{ data: 'initloadamount' },  
+									{ data: 'emt' },  
+									{ data: 'personal' },  
+									{ data: 'contract' },  
 									{ data: 'button1' } 
 								]
 						  });
 
-	
+	/***
+		Event triggers customer information display
+		updates DB with locked flag ->limits view to current user
+	***/
 	$(".lock_item").live('click', function(event){
 		//get the ID
 			 cust_id=$(this).attr('id');
@@ -134,29 +141,30 @@ $(document).ready(function(){
 								options += '<option value="' + obj1.CAL[i].ps_id + '">' + obj1.CAL[i].display + '</option>';
 							}
 						$("#audit_contract").html(options); 
-						//alert(obj1.islocked);
+						
 						if(obj1.islocked == 0)
 						{
-								//alert(result);
-							 
-								//alert(obj1.firstname);
 							//Populate fields
+							//CUSTOMER ID
+							
 							//banking
 							$("#emt").val(obj1.initloadamount); 
-							$("#emt_pass").val(obj1.psw);
+							$("#emt_pass").val(obj1.psw); 
 							//info
+							$("#tag").val(obj1.cust_id);
 							$("#firstname").val(obj1.firstname);
-							$("#middleName").val(obj1.midname);
+							//$("#middleName").val(obj1.midname);
 							$("#lastname").val(obj1.lastname);
 							$("#hphone").val(obj1.homephone);
 							$("#phone").val(obj1.cellphone);
 							$("#email").val(obj1.email);
-							$("#gender").val(obj1.gender);
+							$("#gender").val(obj1.sex);
 							$("#DOB").val(obj1.dob);
 							$("#SIN").val(obj1.sin);
 							$("#secret").val(obj1.secret);
-							$("#occupation").val(obj1.occupation);
+							$("#occupation").val(obj1.occupationID);
 							$("#mmn").val(obj1.motherInfo);
+							$("#agent").val(obj1.agent);
 							//address
 							$("#lane").val(obj1.line1);
 							$("#laneTwo").val(obj1.line2);
@@ -177,9 +185,17 @@ $(document).ready(function(){
 							$("#sid_place").val(obj1.splace);
 							$("#sid_expire").val(obj1.sexpire);
 							//status dropdowns 
-							$("#audit_emt").val(obj1.emt_id);
-							$("#audit_info").val(obj1.info_id);
-							$("#audit_contract").val(obj1.contract_id);
+							
+							
+							//$("#audit_contract").val(obj1.contract_id);
+							
+							 
+							
+							 //if(obj1.contract_id==18){$('#contract_checkbox').bootstrapToggle('on')}else{$('#contract_checkbox').bootstrapToggle('off')}
+							 $("#audit_emt").val(obj1.emt_id);
+							 if(obj1.emt_id==12){$('#emt_checkbox').bootstrapToggle('on')}else{$('#emt_checkbox').bootstrapToggle('off')}
+							 $("#audit_info").val(obj1.info_id);
+							 if(obj1.info_id==6){$('#info_checkbox').bootstrapToggle('on')}else{$('#info_checkbox').bootstrapToggle('off')}
 							//status checkbox this.prop('checked')
 							table.ajax.reload();
 						}
@@ -197,6 +213,29 @@ $(document).ready(function(){
 			
 			event.preventDefault();	
 	});
+	 $('#audit_emt').change(function(){
+        if($('#audit_emt').val() == 12) {
+            $('#emt_checkbox').bootstrapToggle('on')
+        } else {
+            $('#emt_checkbox').bootstrapToggle('off')
+        } 
+	}); 
+	 $('#audit_info').change(function(){
+        if($('#audit_info').val() == 6) {
+            $('#info_checkbox').bootstrapToggle('on')
+        } else {
+            $('#info_checkbox').bootstrapToggle('off')
+        } 
+	}); 
+	
+	$('#audit_contract').change(function(){
+        if($('#audit_contract').val() == 18) {
+            $('#contract_checkbox').bootstrapToggle('on')
+        } else {
+            $('#contract_checkbox').bootstrapToggle('off')
+        } 
+	}); 
+	
 		$(".lockedbtn").live('click', function(event){
 		//Status=NEW APP must be used but has no effect here
 		
@@ -208,6 +247,23 @@ $(document).ready(function(){
 					
 				}); 
 	});	
+	 $('.submit_info').live('click', function(event){
+		
+			var action=0;
+			var request="edit";
+			//alert($('#info_form').serialize());
+			$.ajax({
+					url:'../controller/page_request.php?request='+request+'&action='+action,
+					data:$('#info_form').serialize(),
+					success:function(result){ 
+					alert(result);
+					table.ajax.reload();
+					
+					}
+					
+				});
+				event.preventDefault();
+	}); 
 	$(".exit").live('click', function(event){
 		//Status=NEW APP must be used but has no effect here
 		

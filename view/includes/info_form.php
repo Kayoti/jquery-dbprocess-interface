@@ -6,32 +6,30 @@
 				</div>
 								
 				<div class="modal-body">
-					<form class="contact" name="contact">
+					<form id="info_form" class="contact" name="info_form">
 					
-				<!-- BANKING ------------------------------------->
+				<!-- BANKING -->
 						
-					<!--Banking-->
+					
 					<div class="row">
 						<div class="col-lg-8">
 							<div class="form_box_wrap">
 							<div class="clearfix"></div>
-							
+							<input id="tag" type="hidden" name="tag" class="input-xlarge" />
 								<div class="row form_box">
 									
 									<h4 class="modal-subheading">Banking</h4>
 									
 									<div class="col-lg-4">
 										<label class="label" for="emt">EMT</label>
-										<input id="emt" type="text" name="emt" class="input-xlarge" disabled/>
+										
+										<input id="emt" type="text" name="emt" class="input-xlarge" />
 									</div>
 									<div class="col-lg-4">
 										<label class="label" for="emt">EMT Password</label>
-										<input id="emt_pass" type="text" name="emt_pass" class="input-xlarge" disabled/>
+								<input id="emt_pass" type="text" name="emt_pass" class="input-xlarge" />
 									</div>
-									<div class="col-lg-4">
-										<label class="label" for="emt">EMT Password</label>
-										<input id="emt_pass" type="text" name="emt_pass" class="input-xlarge" disabled/>
-									</div>
+									
 								</div>
 								
 							</div>
@@ -41,7 +39,7 @@
 							<div class="form_box_wrap">
 								
 								<div class="form_box">
-									<input type="checkbox"  data-width="100" data-height="50" unchecked data-toggle="toggle" data-on="READY" data-off="PENDING" data-onstyle="success" data-offstyle="warning">
+									<input id="emt_checkbox" type="checkbox"  data-width="100" data-height="50" unchecked data-toggle="toggle" data-on="READY" data-off="PENDING" data-onstyle="success" data-offstyle="warning">
 									<select id="audit_emt" name="audit_emt"></select>
 								</div>
 								
@@ -50,7 +48,7 @@
 						
 					</div>			
 					
-				<!-- INFO ------------------------------------->
+				<!-- INFO -->
 					
 					<div class="row">
 						<div class="col-lg-8">
@@ -68,7 +66,7 @@
 										<input type="text" id="lastname" name="lastname" class="input-xlarge"/>
 										
 										<label class="label" for="email">Email</label>
-										<input type="email" id="email" name="email" class="input-xlarge"/>
+										<input type="text" id="email" name="email" class="input-xlarge"/>
 										
 										<label class="label" for="phone">Phone</label>
 										<input type="phone" id="phone" name="phone" class="input-xlarge"/>
@@ -87,18 +85,18 @@
 															
 										<label class="label" for="Gender">Gender </label>
 										<select id="gender" name="gender" class="input-xlarge">
-											<option value="Male" >Male</option>
-											<option value="Female" >Female</option>
+											<option value="M" >Male</option>
+											<option value="F" >Female</option>
 										</select>
 										
-										<label class="label" for="Date_of_Birth">Date of Birth (MM/DD/YYYY)</label>
+										<label class="label" for="Date_of_Birth">Date of Birth (YYYY/MM/DD)</label>
 										<input name="dob" id="DOB" type="text" class="input-xlarge" required />
 										
 										<label class="label" for="agents">Agent</label>
-										<input name="agent" id="agent" type="text" class="input-xlarge" disabled />
+										<input name="agent" id="agent" type="text" class="input-xlarge"  />
 									</div>
 									
-								<!--Address-->
+								
 									<div class="col-lg-4">
 										<label class="label" for="lane">Address Line 1: </label>
 										<input id="lane" name="lane" type="text" maxlength="255" value="" class="input-xlarge" required />
@@ -128,7 +126,7 @@
 										<input id="code" name="code"  type="text" maxlength="255" class="input-xlarge" value="" />
 									</div>
 									
-								<!--ID-->
+								
 									<div class="col-lg-4">
 										<label class="label" for="">Primary ID Type </label>
 										<select id="pid_type" class="input-xlarge" name="PrimaryIDType">
@@ -249,12 +247,12 @@
 								</div>
 							</div>
 						</div>
-								
+							
 							<div class="col-lg-4">
 								<div class="form_box_wrap">
 								
 									<div class="form_box">
-										<input type="checkbox"  data-width="100" data-height="50" unchecked data-toggle="toggle" data-on="READY" data-off="PENDING" data-onstyle="success" disabled data-offstyle="warning">
+										<input id="info_checkbox" type="checkbox"  data-width="100" data-height="50"  data-toggle="toggle" data-on="READY" data-off="PENDING" data-onstyle="success"  data-offstyle="warning">
 										<select id="audit_info" name="audit_info">
 											<option title="" value="0" selected>--INFO STATUS--</option>
 										</select>
@@ -264,9 +262,9 @@
 							</div>
 						</div>				
 
-				<!-- CONTRACT ------------------------------------->	
+				<!-- CONTRACT-->	
 					
-					<div class="row">
+					<!--<div class="row">
 					
 						<div class="col-lg-8">
 							<div class="form_box_wrap">
@@ -290,7 +288,7 @@
 						<div class="col-lg-4">
 							<div class="form_box_wrap">
 								<div class="form_box">
-									<input type="checkbox"  data-width="100" data-height="50" unchecked data-toggle="toggle" data-on="READY" data-off="PENDING" data-onstyle="success" data-offstyle="warning">
+									<input id="contract_checkbox" type="checkbox"  data-width="100" data-height="50" unchecked data-toggle="toggle" data-on="READY" data-off="PENDING" data-onstyle="success" data-offstyle="warning">
 									<select id="audit_contract" name="audit_contract">
 									 	<option title="" value="0">--CONTRACT STATUS--</option>
 									</select>
@@ -298,7 +296,7 @@
 							</div>	
 						</div>
 							
-					</div>
+					</div>-->
 						
 					</form>
 						

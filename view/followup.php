@@ -25,7 +25,7 @@
                 <!-- /.row -->
 
                 <div class="row">
-				<div class="col-lg-6 col-md-6">
+				 <!--<div class="col-lg-6 col-md-6">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <div class="row">
@@ -33,7 +33,7 @@
                                         <i class="fa fa-tasks fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">Bad Banking</div>
+                                        <div class="huge">EMT Errors</div>
                                         <div>200</div>
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@
                                         <i class="fa fa-shopping-cart fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">Unverified</div>
+                                        <div class="huge">Personal Errors</div>
                                         <div>26</div>
                                     </div>
                                 </div>
@@ -79,7 +79,30 @@
                                         <i class="fa fa-support fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">Bad Apps</div>
+                                        <div class="huge">Contract Errors</div>
+                                        <div>30</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>    
+                    </div>
+					
+					<div class="col-lg-6 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-support fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">Dead Apps</div>
                                         <div>30</div>
                                     </div>
                                 </div>
@@ -92,14 +115,10 @@
                                 </div>
                             </a>
                         </div>
-						
-                    </div>
-					
-					
                   
                    
                     
-                </div>
+                </div>-->
                 <!-- /.row -->
 
                
@@ -116,5 +135,6 @@
   
 
 </body>
-<?php include('includes/header.php');?>
+<?php include('includes/footer.php');?>
+
 </html>

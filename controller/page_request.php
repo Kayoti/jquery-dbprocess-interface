@@ -66,13 +66,54 @@
 				$list['CAL'] = $contractAudit_List; //get the built DD code
 				echo json_encode($list);
 				break;
-			case "edit":
-				echo "display info";
+				
+			case "get_totals":
+				$requests = $dbobj->getappcount(0);
+				$counts['NA'] = $requests['num'];				
+				$requests = $dbobj->getappcount(1);
+				$counts['ERR'] = $requests['num'];				
+				$requests = $dbobj->getappcount(2);
+				$counts['IP'] = $requests['num'];
+				$requests = $dbobj->getappcount(3);
+				$counts['QUE'] = $requests['num'];
+				$requests = $dbobj->getappcount(4);
+				$counts['DA'] = $requests['num'];
+				$requests = $dbobj->getappcount(5);
+				$counts['DCA'] = $requests['num'];
+				$requests = $dbobj->getappcount(6);
+				$counts['RC'] = $requests['num'];
+				$requests = $dbobj->getappcount(9);
+				$counts['AC'] = $requests['num'];
+				
+				echo json_encode($counts);
 				break;
+			case "edit":
+				$info = $_GET;
+				$output = array();
+				foreach($info as $key => $value)
+				{
+					if( strpos($key,"=") ===  false )
+					{
+						$output[$key] = "'".$value."'";	
+					}
+				}
+				//$_GET has request and action you must remove them from the array
+				unset($output['request']);
+				unset($output['action']);
+				$finalString = implode(',',$output);
+				
+				$update=$dbobj->updateApp($finalString);
+				
+				echo $finalString;
+				//echo $update;
+			
+				break;	
+				
 			
 			case "change_flag":
 				//change app status flag	
-				$update=$dbobj->updatestatus($cust_id,$action);
+			$msg="";
+				$update=$dbobj->updatestatus($cust_id,$action,$msg);
 				echo $update;
 				break;	
 			case "unlock_app":
@@ -81,6 +122,7 @@
 				echo $update;
 				break;	
 			
+				
 				
 				
 			default:// DEFAULT this is where fuck ups go to die

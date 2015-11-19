@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Active Clients <small>List</small>
+                            QUE <small>List</small>
                         </h1>
                        
                     </div>
@@ -73,7 +73,7 @@ $(document).ready(function(){
     ***/
     function tablerequest(){
         this.request = "list";
-        this.action = 1;
+        this.action = 3;
         }
     //table request object
     var param= new tablerequest();
@@ -114,7 +114,7 @@ $(document).ready(function(){
         $.trim(cust_id);
         var request="process";
         //Status=NEW APP 
-        var action=1;
+        var action=3;
         $.ajax({
                     url:'../controller/dc_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
                     success:function(result){table.ajax.reload();}

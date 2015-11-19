@@ -3,9 +3,16 @@
 	//DEFINES
 	define('GETNEW_APPS', 'call getapps(%s);'); 
 	define('GETCUST_BYID', 'call getappbyid(%s);'); 
-	define('UPDATE_STATUS', 'call changeAppStatus(%s,%s);'); 
+	define('UPDATE_STATUS', 'call changeAppStatus(%s,%s,%s);'); 
 	define('UPDATE_LOCKSTATUS', 'call lockcust(%s,%s);'); 
 	define('GETAUDITDD', 'call getAuditDD(%s);'); 
+	define('GETAPPCOUNT', 'call getappcount(%s);'); 
+	define('UPDATE_APP', "call updateApp(%s);"); 
+	
+	
+	define('AUDIT', "call addAudit(%s,%s,%s,%s);");
+	
+	define('UPDATECARD', "call updateCardInfo(%s,%s,%s,%s,%s,%s);");
 	//END DEFINES
 	
 	/***
