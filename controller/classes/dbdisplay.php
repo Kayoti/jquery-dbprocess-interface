@@ -122,7 +122,7 @@
 		{
 				
 				
-			$list=db_query(sprintf(UPDATECARD,$info,$panhash, $wallet, $cardnum, $ref, $bal),0,0);
+			$list=db_query(sprintf(UPDATECARD,$id,$panhash, $wallet, $cardnum, $ref, $bal),0,0);
 			return $list;
 			 
 		  

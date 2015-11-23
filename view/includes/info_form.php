@@ -85,6 +85,7 @@
 															
 										<label class="label" for="Gender">Gender </label>
 										<select id="gender" name="gender" class="input-xlarge">
+											<option value="0" >UNKNOWN</option>
 											<option value="M" >Male</option>
 											<option value="F" >Female</option>
 										</select>
@@ -107,6 +108,7 @@
 										<input id="city" name="city" type="text" maxlength="255" value="" class="input-xlarge" required />
 										<label class="label" for="label:Province">Province: </label>                         							
 										<select id="province" name="province" class="input-xlarge" required> 
+											<option value="0" >NONE</option>
 											<option value="AB" >Alberta</option>
 											<option value="BC" >British Columbia</option>
 											<option value="SK" >Saskatchewan</option>
@@ -130,6 +132,7 @@
 									<div class="col-lg-4">
 										<label class="label" for="">Primary ID Type </label>
 										<select id="pid_type" class="input-xlarge" name="PrimaryIDType">
+											<option value="0" >NONE</option>
 											<option value="1" >Drivers License</option>
 											<option value="2" >Passport</option>
 											<option value="3" >Certificate Canadian Citizenship</option>
@@ -166,6 +169,7 @@
 	
 										<label class="label" for="id_place">Place of Issuance</label>
 										<select id="pid_place" name="PrimaryPlaceOfIssue" class="input-xlarge" required> 
+											<option value="0" >NONE</option>
 											<option value="AB" >Alberta</option>
 											<option value="BC" >British Columbia</option>
 											<option value="SK" >Saskatchewan</option>
@@ -185,6 +189,7 @@
 										<input id="pid_expire" name="PrimaryIDExpiryDate" data-format="yyyy-mm-dd" type="text" class="input-xlarge" required />
 										<label class="label" for="SecondaryIDType">Secondary ID Type </label>
 										<select id="sid_type" name="SecondaryIDType">
+											<option value="0" >NONE</option>
 											<option value="1" >Drivers License</option>
 											<option value="2" >Passport</option>
 											<option value="3" >Certificate Canadian Citizenship</option>
@@ -225,7 +230,8 @@
 										<input id="sid_num" name="SecondaryIDNumber" type="text" maxlength="255"  value="" class="input-xlarge"/>
 	
 										<label class="label" for="id_place">Place of Issuance</label>
-										<select id="sid_place" name="SecondaryPlaceOfIssue" class="input-xlarge" required> 
+										<select id="sid_place" name="SecondaryPlaceOfIssue" class="input-xlarge" required>
+											<option value="0" >NONE</option>
 											<option value="AB" >Alberta</option>
 											<option value="BC" >British Columbia</option>
 											<option value="SK" >Saskatchewan</option>

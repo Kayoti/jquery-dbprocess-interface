@@ -30,9 +30,9 @@
                                         <th>First Name</th>
                                         <th>Last Name</th>
                                         <th>Email</th>
-                                        <th>EMT Status</th>
-                                        <th>INFO Status</th>
-                                        <th>CONTRACT Status</th>
+                                        <th>EDIT INFO</th>
+                                        <th>RELOAD CARD</th>
+                                        <th>DISABLE CLIENT</th>
                                         <th></th>
                                         <th></th>
                                     </tr>
@@ -73,7 +73,7 @@ $(document).ready(function(){
     ***/
     function tablerequest(){
         this.request = "list";
-        this.action = 1;
+        this.action = 9;
         }
     //table request object
     var param= new tablerequest();
@@ -95,10 +95,10 @@ $(document).ready(function(){
                                     { data: 'firstname' },  
                                     { data: 'lastname' },
                                     { data: 'email' },  
-                                    { data: 'emt' },  
-                                    { data: 'personal' },  
-                                    { data: 'contract' },  
-                                    { data: 'button1' } 
+                                    
+                                    { data: 'button1' },
+                                    { data: 'button2' },
+                                    { data: 'button3' } 
                                 ]
     });
 
@@ -108,20 +108,207 @@ $(document).ready(function(){
     ***/
     $(".lock_item").live('click', function(event){
         //get the ID
-        cust_id=$(this).attr('id');
+             cust_id=$(this).attr('id');
+             locked = 1;
+            //make sure no white space is before or after id value
+              $.trim(cust_id);
+            var request="review";
+            //Status=active APP 
+            var action=9;
+              
+                $.ajax({
+                    url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
+                    
+                    success:function(result){
+                        var obj1 = $.parseJSON(result);
+                        //Load Dropdown Options
+                        var options = '<option title="" value="0">--EMT STATUS--</option>';
+                            
+                        for (var i = 0; i < obj1.EAL.length; i++) {
+                                options += '<option value="' + obj1.EAL[i].ps_id + '">' + obj1.EAL[i].display + '</option>';
+                            }
+                                $("#audit_emt").html(options); 
+                        var options = '<option title="" value="0">--INFO STATUS--</option>';
+                            
+                        for (var i = 0; i < obj1.IAL.length; i++) {
+                                options += '<option value="' + obj1.IAL[i].ps_id + '">' + obj1.IAL[i].display + '</option>';
+                            }
+                                $("#audit_info").html(options); 
+                        var options = '<option title="" value="0">--CONTRACT STATUS--</option>';
+                        for (var i = 0; i < obj1.CAL.length; i++) {
+                                options += '<option value="' + obj1.CAL[i].ps_id + '">' + obj1.CAL[i].display + '</option>';
+                            }
+                        $("#audit_contract").html(options); 
+                        
+                        if(obj1.islocked == 0)
+                        {
+                            //Populate fields
+                            //CUSTOMER ID
+                            
+                            //banking
+                            $("#emt").val(obj1.initloadamount); 
+                            $("#emt_pass").val(obj1.psw); 
+                            //info
+                            $("#tag").val(obj1.cust_id);
+                            $("#firstname").val(obj1.firstname);
+                            //$("#middleName").val(obj1.midname);
+                            $("#lastname").val(obj1.lastname);
+                            $("#hphone").val(obj1.homephone);
+                            $("#phone").val(obj1.cellphone);
+                            $("#email").val(obj1.email);
+                            $("#gender").val(obj1.sex);
+                            $("#DOB").val(obj1.dob);
+                            $("#SIN").val(obj1.sin);
+                            $("#secret").val(obj1.secret);
+                            $("#occupation").val(obj1.occupationID);
+                            $("#mmn").val(obj1.motherInfo);
+                            $("#agent").val(obj1.agent);
+                            //address
+                            $("#lane").val(obj1.line1);
+                            $("#laneTwo").val(obj1.line2);
+                            $("#city").val(obj1.city);
+                            $("#province").val(obj1.StateProvName);
+                            $("#code").val(obj1.PostalCode);
+                            //ID
+                            //PID
+                            
+                            $("#pid_type").val(obj1.ptype);
+                            $("#pid_num").val(obj1.pnumber);
+                            $("#pid_place").val(obj1.pplace);
+                            $("#pid_expire").val(obj1.pexpire);
+                            
+                            //SID
+                            $("#sid_type").val(obj1.stype);
+                            $("#sid_num").val(obj1.snumber);
+                            $("#sid_place").val(obj1.splace);
+                            $("#sid_expire").val(obj1.sexpire);
+                            //status dropdowns 
+                            
+                            
+                            //$("#audit_contract").val(obj1.contract_id);
+                            
+                             
+                            
+                             //if(obj1.contract_id==18){$('#contract_checkbox').bootstrapToggle('on')}else{$('#contract_checkbox').bootstrapToggle('off')}
+                             $("#audit_emt").val(obj1.emt_id);
+                             if(obj1.emt_id==12){$('#emt_checkbox').bootstrapToggle('on')}else{$('#emt_checkbox').bootstrapToggle('off')}
+                             $("#audit_info").val(obj1.info_id);
+                             if(obj1.info_id==6){$('#info_checkbox').bootstrapToggle('on')}else{$('#info_checkbox').bootstrapToggle('off')}
+                            //status checkbox this.prop('checked')
+                            table.ajax.reload();
+                        }
+                        else
+                        {
+                            alert("sorry this record is locked");
+                            $( ".lockedbtn" ).trigger( "click" );
+                            table.ajax.reload();
+                            
+                            //
+                        }
+                    }
+                }); 
+            
+            
+            event.preventDefault(); 
+    });
+     $('#audit_emt').change(function(){
+        if($('#audit_emt').val() == 12) {
+            $('#emt_checkbox').bootstrapToggle('on')
+        } else {
+            $('#emt_checkbox').bootstrapToggle('off')
+        } 
+    }); 
+     $('#audit_info').change(function(){
+        if($('#audit_info').val() == 6) {
+            $('#info_checkbox').bootstrapToggle('on')
+        } else {
+            $('#info_checkbox').bootstrapToggle('off')
+        } 
+    }); 
+    
+    $('#audit_contract').change(function(){
+        if($('#audit_contract').val() == 18) {
+            $('#contract_checkbox').bootstrapToggle('on')
+        } else {
+            $('#contract_checkbox').bootstrapToggle('off')
+        } 
+    }); 
+    
+        $(".lockedbtn").live('click', function(event){
+        //Status=NEW APP must be used but has no effect here
         
-        //make sure no white space is before or after id value
-        $.trim(cust_id);
-        var request="process";
-        //Status=NEW APP 
-        var action=1;
-        $.ajax({
-                    url:'../controller/dc_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
+            var action=0;
+            var request="list";
+            $.ajax({
+                    url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
                     success:function(result){table.ajax.reload();}
                     
                 }); 
-              
-      });         
+    }); 
+     $('.submit_info').live('click', function(event){
+        
+            var action=9;
+            var request="edit";
+            //alert($('#info_form').serialize());
+            $.ajax({
+                    url:'../controller/page_request.php?request='+request+'&action='+action,
+                    data:$('#info_form').serialize(),
+                    success:function(result){ 
+                        BootstrapDialog.show({
+                            size: BootstrapDialog.SIZE_LARGE,
+                             message: result,
+                             buttons: [ {
+                                label: 'Close',
+                                    action: function(dialogItself){
+                                    dialogItself.close();
+                                 }
+                            }]
+                         });
+                    
+                    table.ajax.reload();
+                    
+                    }
+                    
+                });
+                event.preventDefault();
+    }); 
+ $(".disable").live('click', function(event){
+        //Status=unlocked=0 must be used but has no effect here
+        
+        var action=5;
+        var request="change_flag";
+         //get the ID
+             cust_id=$(this).attr('id');
+            
+            //make sure no white space is before or after id value
+              $.trim(cust_id);
+        $.ajax({
+                    url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
+                    success:function(result){table.ajax.reload();}
+                    
+                });
+    }); 
+    $(".exit").live('click', function(event){
+        //Status=unlocked=0 must be used but has no effect here
+        
+        var action=0;
+        var request="unlock_app";
+        $.ajax({
+                    url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
+                    success:function(result){table.ajax.reload();}
+                    
+                });
+    }); 
+
+    $(window).bind('beforeunload',function(locked){
+        //do something
+        if(locked)
+        {       
+            
+            $( ".exit" ).trigger( "click" );
+            return 'are you sure you want to leave?';
+        }
+    });         
 }); 
 </script>
 

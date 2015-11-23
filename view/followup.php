@@ -13,7 +13,7 @@
                         <ol class="breadcrumb">
                            
 							<li class="active">
-                                <i class="fa fa-dashboard"></i> Follow-Up
+                                <i class="fa fa-phone"></i> Follow-Up
                             </li>
 							
                         </ol>
@@ -25,7 +25,30 @@
                 <!-- /.row -->
 
                 <div class="row">
-				 <!--<div class="col-lg-6 col-md-6">
+				 <div class="col-lg-6 col-md-6">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-tasks fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div >DCBANK ERRORS</div>
+                                        <div class="huge" id="DC_ERROR" ></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="dc_error.php">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+						
+                    </div>
+                     <div class="col-lg-6 col-md-6">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <div class="row">
@@ -33,12 +56,12 @@
                                         <i class="fa fa-tasks fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">EMT Errors</div>
-                                        <div>200</div>
+                                        <div >Disabled Apps</div>
+                                        <div id="Disabled" class="huge"></div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="disabled.php">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -48,30 +71,8 @@
                         </div>
 						
                     </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-shopping-cart fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">Personal Errors</div>
-                                        <div>26</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-						
-                    </div>
-					 <div class="col-lg-6 col-md-6">
+
+					 <!--<div class="col-lg-6 col-md-6">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <div class="row">
@@ -136,5 +137,26 @@
 
 </body>
 <?php include('includes/footer.php');?>
+<script>
+$(document).ready(function(){
+    var action=0;
+    var request="get_totals";
+    $.ajax({
+                    url:'../controller/page_request.php?request='+request+'&action='+action,
+                    success:function(result){
+                        var obj1 = $.parseJSON(result); 
+                        
+                       
+                        var followups = obj1.ERR;
+                        var disabled = obj1.DCA;
+                        $("#DC_ERROR").html(followups);
+                        $("#Disabled").html(disabled);
+                       
+                    }
+                    
+                });
+});
+ 
+</script>
 
 </html>

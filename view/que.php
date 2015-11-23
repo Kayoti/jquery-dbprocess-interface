@@ -45,7 +45,7 @@
                 </div>
                 <!-- /.row -->
                  
-                 <?php include ('includes/info_form.php'); ?>
+               
                 
                 
 
@@ -113,11 +113,23 @@ $(document).ready(function(){
         //make sure no white space is before or after id value
         $.trim(cust_id);
         var request="process";
-        //Status=NEW APP 
+        //Status=QUE 
         var action=3;
         $.ajax({
                     url:'../controller/dc_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
-                    success:function(result){table.ajax.reload();}
+                    success:function(result){
+
+                        BootstrapDialog.show({
+                            size: BootstrapDialog.SIZE_LARGE,
+                             message: 'Processed!',
+                             buttons: [ {
+                                label: 'Close',
+                                    action: function(dialogItself){
+                                    dialogItself.close();
+                                 }
+                            }]
+                         });
+                        table.ajax.reload(); }
                     
                 }); 
               

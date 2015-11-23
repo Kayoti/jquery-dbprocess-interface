@@ -26,6 +26,7 @@
     <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
 	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap2-toggle.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/css/bootstrap-dialog.min.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -78,10 +79,21 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li class="active">
+                    <li >
                         <a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
-                    
+                    <li >
+                        <a href="request.php"><i class="fa fa-fw fa-bell"></i> New Apps</a>
+                    </li>
+                    <li >
+                        <a href="client.php"><i class="fa fa-fw fa-user"></i> Active Clients</a>
+                    </li>
+                    <li >
+                        <a href="que.php"><i class="fa fa-fw fa-exchange"></i>QUE</a>
+                    </li>
+                    <li >
+                        <a href="followup.php"><i class="fa fa-fw fa-phone"></i> Follow-ups</a>
+                    </li>
                    
                 </ul>
             </div>

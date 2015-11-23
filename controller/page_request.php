@@ -32,22 +32,45 @@
 					//build button
 					$newarray = $listArray; 
 
-		
-						$newarray["button1"] = "<input data-toggle='modal' href='#form-content' value='Process' class='lock_item btn btn-lg btn-primary' type='button' id='".$listArray["cust_id"]."' />";
-
-					//put in return array
-					$output_arr[] = $newarray;
+						if($action == 9)
+						{
+							$newarray["button1"] = "<input data-toggle='modal' href='#form-content' value='Edit' class='lock_item btn btn-lg btn-primary' type='button' id='".$listArray["cust_id"]."' />";
+							$newarray["button2"] = "<input data-toggle='modal' href='#form-reload' value='Reload' class='reload btn btn-lg btn-warning' type='button' id='".$listArray["cust_id"]."' />";
+							$newarray["button3"] = "<input data-toggle='modal'  value='Disable' class='disable btn btn-lg btn-danger' type='button' id='".$listArray["cust_id"]."' />";
+						}
+						else{
+							$newarray["button1"] = "<input data-toggle='modal' href='#form-content' value='Process' class='lock_item btn btn-lg btn-primary' type='button' id='".$listArray["cust_id"]."' />";
+							
+						}
+							//put in return array
+							$output_arr[] = $newarray;
 					}
 					$return_arr["aaData"] = $output_arr;
 				}
 				else {	 
-					$newarray["firstname"] = "";
-					$newarray["lastname"] = "";
-					$newarray["email"] = "";
-					$newarray["psw"] = "";
-					$newarray["initloadamount"] = "";
-					$newarray["button1"] = "";
-						
+
+						if($action == 9)
+						{
+					
+
+							$newarray["firstname"] = "";
+							$newarray["lastname"] = "";
+							$newarray["email"] = "";
+							
+							$newarray["button1"] = "";
+							$newarray["button2"] = "";
+							$newarray["button3"] = "";
+						}
+						else{
+							$newarray["firstname"] = "";
+							$newarray["lastname"] = "";
+							$newarray["email"] = "";
+							$newarray["emt"] = "";
+							$newarray["personal"] = "";
+							$newarray["contract"] = "";
+
+							$newarray["button1"] = "";
+						}
 					$return_arr["aaData"] = $newarray;
 				}
 				echo json_encode($return_arr);	
@@ -112,7 +135,7 @@
 			
 			case "change_flag":
 				//change app status flag	
-			$msg="";
+				$msg="";
 				$update=$dbobj->updatestatus($cust_id,$action,$msg);
 				echo $update;
 				break;	
@@ -122,9 +145,7 @@
 				echo $update;
 				break;	
 			
-				
-				
-				
+			
 			default:// DEFAULT this is where fuck ups go to die
 			echo "Error:unknown request! Please Contact Admin";
 		}

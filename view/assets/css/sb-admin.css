@@ -193,13 +193,11 @@ ul.alert-dropdown {
 .panel-red {
     border-color: #d9534f;
 }
-
 .panel-red > .panel-heading {
     border-color: #d9534f;
     color: #fff;
     background-color: #d9534f;
 }
-
 .panel-red > a {
     color: #d9534f;
 }
@@ -207,6 +205,25 @@ ul.alert-dropdown {
 .panel-red > a:hover {
     color: #b52b27;
 }
+
+.panel-indego {
+    border-color: #D2527F;
+}
+.panel-indego .panel-heading { 
+    border-color: #D2527F;
+    background-color: #D2527F;
+    color: #fff;
+}
+.panel-indego > a {
+    color: #D2527F;
+}
+
+.panel-indego > a:hover {
+    color: #b52b27;
+}
+
+
+
 
 .panel-yellow {
     border-color: #f0ad4e;

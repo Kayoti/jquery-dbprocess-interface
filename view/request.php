@@ -22,7 +22,7 @@
                         <div class="table-responsive">
 						<ol class="breadcrumb">
 											<li class="active">
-												<i class="fa fa-table"></i> OCT/30/2015
+												<i class="fa fa-bell"></i> 
 											</li>
 										</ol>
                         </div>
@@ -126,18 +126,18 @@ $(document).ready(function(){
 						//Load Dropdown Options
 						var options = '<option title="" value="0">--EMT STATUS--</option>';
 							
-						for (var i = 1; i < obj1.EAL.length; i++) {
+						for (var i = 0; i < obj1.EAL.length; i++) {
 								options += '<option value="' + obj1.EAL[i].ps_id + '">' + obj1.EAL[i].display + '</option>';
 							}
 								$("#audit_emt").html(options); 
 						var options = '<option title="" value="0">--INFO STATUS--</option>';
 							
-						for (var i = 1; i < obj1.IAL.length; i++) {
+						for (var i = 0; i < obj1.IAL.length; i++) {
 								options += '<option value="' + obj1.IAL[i].ps_id + '">' + obj1.IAL[i].display + '</option>';
 							}
 								$("#audit_info").html(options); 
 						var options = '<option title="" value="0">--CONTRACT STATUS--</option>';
-						for (var i = 1; i < obj1.CAL.length; i++) {
+						for (var i = 0; i < obj1.CAL.length; i++) {
 								options += '<option value="' + obj1.CAL[i].ps_id + '">' + obj1.CAL[i].display + '</option>';
 							}
 						$("#audit_contract").html(options); 
@@ -256,7 +256,17 @@ $(document).ready(function(){
 					url:'../controller/page_request.php?request='+request+'&action='+action,
 					data:$('#info_form').serialize(),
 					success:function(result){ 
-					alert(result);
+						BootstrapDialog.show({
+            				size: BootstrapDialog.SIZE_LARGE,
+           					 message: result,
+           					 buttons: [ {
+                				label: 'Close',
+                					action: function(dialogItself){
+                    				dialogItself.close();
+               					 }
+            				}]
+       					 });
+					
 					table.ajax.reload();
 					
 					}
