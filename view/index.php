@@ -1,163 +1,114 @@
-<?php include ('includes/header.php');
+<?php 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+require("../model/login_config.php"); 
+$submitted_username = ''; 
+if(!empty($_POST)){ 
+    $query = " 
+    SELECT 
+    id, 
+    username, 
+    password, 
+    salt, 
+    email,
+    level
+    FROM users inner join user_level on id = user_id
+    WHERE 
+    username = :username 
+    "; 
+    $query_params = array( 
+        ':username' => $_POST['username'] 
+        ); 
+    
+    try{ 
+        $stmt = $db->prepare($query); 
+        $result = $stmt->execute($query_params); 
+    } 
+    catch(PDOException $ex){ die("Failed to run query: " . $ex->getMessage()); } 
+    $login_ok = false; 
+    $row = $stmt->fetch(); 
+    if($row){ 
+        $check_password = hash('sha256', $_POST['password'] . $row['salt']); 
+        for($round = 0; $round < 65536; $round++){
+            $check_password = hash('sha256', $check_password . $row['salt']);
+        } 
+        if($check_password === $row['password']){
+            $login_ok = true;
+        } 
+    } 
+
+    if($login_ok){ 
+        unset($row['salt']); 
+        unset($row['password']); 
+        $_SESSION['user'] = $row;  
+        header("Location: dashboard.php"); 
+        die("Redirecting to: index.php"); 
+    } 
+    else{ 
+       $error_msg="Login Failed!"; 
+        $submitted_username = htmlentities($_POST['username'], ENT_QUOTES, 'UTF-8'); 
+        
+    } 
+} 
+?> 
 
 
-?>
 
-        <div id="page-wrapper">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Responsive JQUERY Admin Panel">
+    <meta name="author" content="Wael Ali">
+    
+    <link rel="shortcut icon" href="images/favicon.png">
 
-            <div class="container-fluid">
+    <title>Login Page | Card Services Admin Panel</title>
 
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Dashboard <small>Services Overview</small>
-                        </h1>
-                        <ol class="breadcrumb">
-                            <li class="active">
-                                <i class="fa fa-dashboard"></i> Dashboard
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-                <!-- /.row -->
+    <!-- Bootstrap CSS -->    
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- bootstrap theme -->
+    <link href="assets/css/bootstrap-theme.css" rel="stylesheet">
+    <!--external css-->
+    <!-- font icon -->
+    <link href="assets/css/elegant-icons-style.css" rel="stylesheet" />
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom styles -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/style-responsive.css" rel="stylesheet" />
 
-               
-                <!-- /.row -->
+    
+</head>
 
-              <div class="row">
-               <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-yellow">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-shopping-cart fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge" id="newRequests"></div>
-                                        <div>New Requests !</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="request.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-indego">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-support fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge" id="queue"></div>
-                                        <div>QUE</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="que.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-comments fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge" id="followups"></div>
-                                        <div>Follow-ups</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="followup.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-green">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-tasks fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge" id="active"></div>
-                                        <div>Active Clients</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="client.php">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                   
-                </div>
-                <!-- /.row -->
+  <body class="login-img3-body">
 
-               
+    <div class="container">
 
+      <form class="login-form" action="index.php" method="post">        
+        <div class="login-wrap">
+            <p class="login-img"><i class="icon_lock_alt"></i></p>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="icon_profile"></i></span>
+              <input value='<?php echo $submitted_username; ?>' name="username" type="text" class="form-control" placeholder="Username" autofocus>
             </div>
-            <!-- /.container-fluid -->
-
+            <div class="input-group">
+                <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+                <input name="password" type="password" class="form-control" placeholder="Password">
+                
+            </div>
+            <div  id="error"><font color="red"><?php if(isset($error_msg)) echo $error_msg; ?></font></div>
+            <label class="checkbox">
+                <input type="checkbox" value="remember-me"> Remember me
+                <span class="pull-right"> <a href="#"> Forgot Password?</a></span>
+            </label>
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+           
         </div>
-        <!-- /#page-wrapper -->
+      </form>
 
     </div>
-    <!-- /#wrapper -->
-
-   
-
-</body>
-<?php include('includes/footer.php');?>
-
-<script>
-$(document).ready(function(){
-	var action=0;
-	var request="get_totals";
-	$.ajax({
-					url:'../controller/page_request.php?request='+request+'&action='+action,
-					success:function(result){
-						var obj1 = $.parseJSON(result);	
-						
-						$("#newRequests").html(obj1.NA);
-						//followups
-						var followups = obj1.ERR + obj1.IP + obj1.DA;
-						$("#followups").html(followups);
-						//active
-						$("#active").html(obj1.AC);
-						//queue
-						$("#queue").html(obj1.QUE);
-					}
-					
-				});
-});
- 
-</script>
 
 
+  </body>
 </html>

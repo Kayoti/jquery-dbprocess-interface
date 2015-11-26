@@ -1,21 +1,21 @@
 <div class="row">
 	<div class="col-lg-12">
 		<div id="form-content" class="modal fade in" style="display: none; padding-left: 0px !important;">
-				<div class="modal-header">
-					<h3>Review Client</h3>
-				</div>
-								
-				<div class="modal-body">
-					<form id="info_form" class="contact" name="info_form">
+			<div class="modal-header">
+				<h3>Review Client</h3>
+			</div>
+			
+			<div class="modal-body">
+				<form id="info_form" class="contact" name="info_form">
 					
-				<!-- BANKING -->
-						
+					<!-- BANKING -->
+					
 					
 					<div class="row">
 						<div class="col-lg-8">
 							<div class="form_box_wrap">
-							<div class="clearfix"></div>
-							<input id="tag" type="hidden" name="tag" class="input-xlarge" />
+								<div class="clearfix"></div>
+								<input id="tag" type="hidden" name="tag" class="input-xlarge" />
 								<div class="row form_box">
 									
 									<h4 class="modal-subheading">Banking</h4>
@@ -27,7 +27,7 @@
 									</div>
 									<div class="col-lg-4">
 										<label class="label" for="emt">EMT Password</label>
-								<input id="emt_pass" type="text" name="emt_pass" class="input-xlarge" />
+										<input id="emt_pass" type="text" name="emt_pass" class="input-xlarge" />
 									</div>
 									
 								</div>
@@ -48,15 +48,15 @@
 						
 					</div>			
 					
-				<!-- INFO -->
+					<!-- INFO -->
 					
 					<div class="row">
 						<div class="col-lg-8">
 							<div class="form_box_wrap">
-							
+								
 								<div class="row form_box">
 									<h4 class="modal-subheading">Information</h4>
-								
+									
 									<!--Personal-->
 									<div class="col-lg-4">
 										<label class="label" for="firstname">First Name</label>
@@ -79,10 +79,11 @@
 										
 										<label class="label" for="secret">Password Code</label>
 										<input id="secret" name="secret" type="text" maxlength="255" value="" class="input-xlarge"/>
-															
+										
 										<label class="label" for="label:Occupation">Occupation </label>
 										<input id="occupation" name="occupation"  type="text" maxlength="255" class="input-xlarge"/>
-															
+										
+
 										<label class="label" for="Gender">Gender </label>
 										<select id="gender" name="gender" class="input-xlarge">
 											<option value="0" >UNKNOWN</option>
@@ -97,7 +98,7 @@
 										<input name="agent" id="agent" type="text" class="input-xlarge"  />
 									</div>
 									
-								
+									
 									<div class="col-lg-4">
 										<label class="label" for="lane">Address Line 1: </label>
 										<input id="lane" name="lane" type="text" maxlength="255" value="" class="input-xlarge" required />
@@ -123,12 +124,12 @@
 											<option value="NT" >Northwest Territories</option>
 											<option value="NU" >Nunavut</option>
 										</select>
-															
+										
 										<label class="label" for="code">Postal Code</label>
 										<input id="code" name="code"  type="text" maxlength="255" class="input-xlarge" value="" />
 									</div>
 									
-								
+									
 									<div class="col-lg-4">
 										<label class="label" for="">Primary ID Type </label>
 										<select id="pid_type" class="input-xlarge" name="PrimaryIDType">
@@ -163,10 +164,10 @@
 											<option value="51" >BC Services Card ID</option>
 											<option value="52" >BC ID</option>
 										</select>
-															
+										
 										<label class="label" for="id_number">ID Number </label>
 										<input id="pid_num" name="PrimaryIDNumber" type="text" maxlength="255"  value="" class="input-xlarge"/>
-	
+										
 										<label class="label" for="id_place">Place of Issuance</label>
 										<select id="pid_place" name="PrimaryPlaceOfIssue" class="input-xlarge" required> 
 											<option value="0" >NONE</option>
@@ -184,7 +185,7 @@
 											<option value="NT" >Northwest Territories</option>
 											<option value="NU" >Nunavut</option>
 										</select>
-	
+										
 										<label class="label" for="PrimaryIDExpiryDate">Expiry Date (YYYY/MM/DD)</label>
 										<input id="pid_expire" name="PrimaryIDExpiryDate" data-format="yyyy-mm-dd" type="text" class="input-xlarge" required />
 										<label class="label" for="SecondaryIDType">Secondary ID Type </label>
@@ -225,10 +226,10 @@
 											<option value="51" >BC Services Card ID</option>
 											<option value="52" >BC ID</option>
 										</select>
-																
+										
 										<label class="label" for="id_number">ID Number </label>
 										<input id="sid_num" name="SecondaryIDNumber" type="text" maxlength="255"  value="" class="input-xlarge"/>
-	
+										
 										<label class="label" for="id_place">Place of Issuance</label>
 										<select id="sid_place" name="SecondaryPlaceOfIssue" class="input-xlarge" required>
 											<option value="0" >NONE</option>
@@ -246,74 +247,101 @@
 											<option value="NT" >Northwest Territories</option>
 											<option value="NU" >Nunavut</option>
 										</select>
-														
+										
 										<label class="label" for="SecondaryIDExpiryDate">Expiry Date (YYYY/MM/DD)</label>
 										<input id="sid_expire" name="SecondaryIDExpiryDate" data-format="yyyy-mm-dd" type="text" required class="input-xlarge" />
 									</div>
 								</div>
 							</div>
 						</div>
-							
-							<div class="col-lg-4">
-								<div class="form_box_wrap">
-								
-									<div class="form_box">
-										<input id="info_checkbox" type="checkbox"  data-width="100" data-height="50"  data-toggle="toggle" data-on="READY" data-off="PENDING" data-onstyle="success"  data-offstyle="warning">
-										<select id="audit_info" name="audit_info">
-											<option title="" value="0" selected>--INFO STATUS--</option>
-										</select>
-									</div>
-							
-								</div>
-							</div>
-						</div>				
-
-				<!-- CONTRACT-->	
-					
-					<!--<div class="row">
-					
-						<div class="col-lg-8">
-							<div class="form_box_wrap">
-							
-								<div class="row form_box">
-									<h4 class="modal-subheading">Contract</h4>
-									<div class="col-lg-4">
-										<input id="" type="text" name="" class="input-xlarge" disabled/>
-									</div>
-									<div class="col-lg-4">
-										<input id="" type="text" name="" class="input-xlarge" disabled/>
-									</div>
-									<div class="col-lg-4">
-										<input id="" type="text" name="" class="input-xlarge" disabled/>
-									</div>
-								</div>
-								
-							</div>
-						</div>
-							
+						
 						<div class="col-lg-4">
 							<div class="form_box_wrap">
+								
 								<div class="form_box">
-									<input id="contract_checkbox" type="checkbox"  data-width="100" data-height="50" unchecked data-toggle="toggle" data-on="READY" data-off="PENDING" data-onstyle="success" data-offstyle="warning">
-									<select id="audit_contract" name="audit_contract">
-									 	<option title="" value="0">--CONTRACT STATUS--</option>
+									<input id="info_checkbox" type="checkbox"  data-width="100" data-height="50"  data-toggle="toggle" data-on="READY" data-off="PENDING" data-onstyle="success"  data-offstyle="warning">
+									<select id="audit_info" name="audit_info">
+										<option title="" value="0" selected>--INFO STATUS--</option>
 									</select>
-								</div>	
-							</div>	
+								</div>
+								
+							</div>
 						</div>
-							
-					</div>-->
-						
-					</form>
-						
-						<div class="modal-footer">
-							<input class="submit_info btn btn-success" type="submit" value="UPDATE" id="submit">
-							<a href="#" class="exit btn btn-primary" data-dismiss="modal">Exit</a>
-							<a href="#" class="lockedbtn" data-dismiss="modal" style="display:none;"></a>
+					</div>				
+
+					<!-- CONTRACT-->	
+					
+					<div class="row">
+						<div class="col-lg-8">
+							<div class="form_box_wrap">
+								
+								<div class="row form_box">
+									<h4 class="modal-subheading">Contract</h4>
+									
+									<!--Personal-->
+									<div class="col-lg-4">
+										
+
+
+
+
+									</div>
+								</div>
+							</div>
 						</div>
 						
-					</div>
+						<div class="col-lg-4">
+							<div class="form_box_wrap">
+								
+								<div class="form_box">
+									<input id="contract_checkbox" type="checkbox"  data-width="100" data-height="50"  data-toggle="toggle" data-on="READY" data-off="PENDING" data-onstyle="success"  data-offstyle="warning">
+									<select id="audit_contract" name="audit_contract">
+										<option title="" value="0" selected>--INFO STATUS--</option>
+									</select>
+								</div>
+								
+							</div>
+						</div>
+					</div>				
+					
+				</form>
 				
-		</div>	
-	</div>
+				<div class="row">
+					
+					<div class="col-lg-8">
+						<div class="form_box_wrap">
+							<form id="comment_form">
+								<div class="row form_box">
+									<h4 class="modal-subheading">Comments</h4>
+									<div class="col-lg-8">
+										<textarea class="col-lg-12" id="info_comment" name="info_comment"  > </textarea>
+									</div>
+									<div class="clearfix"><p></p></div>
+									<div class="col-lg-8" id="comments_side">
+										<input class="submit_comment btn btn-warning" type="button" value="Add Comment" id="add_comment">
+									</div>
+
+									<div class="clearfix"></div>
+									<div style="height: 400px; overflow-y:auto;"  id="comments_area"></div>
+
+								</div>
+							</form>
+						</div>
+					</div>
+					
+					
+					
+				</div>				
+			</div>	
+			
+			<div class="modal-footer">
+				<input class="submit_info btn btn-success" type="submit" value="UPDATE" id="submit">
+				<a href="#" class="exit btn btn-primary" data-dismiss="modal">Exit</a>
+				<a href="#" class="lockedbtn" data-dismiss="modal" style="display:none;"></a>
+			</div>
+			
+		</div>
+		
+	</div>	
+</div>
 </div>

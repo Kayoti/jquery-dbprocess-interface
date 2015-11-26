@@ -18,3 +18,10 @@ input.btn {width: auto;}
 .form_box {padding: 10px; margin-bottom: 40px;}
 
 .toggle.btn {margin-bottom: 20px;}
+.clearfix:after {
+   content: " "; /* Older browser do not support empty content */
+   visibility: hidden;
+   display: block;
+   height: 0;
+   clear: both;
+}

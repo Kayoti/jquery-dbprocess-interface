@@ -1,79 +1,79 @@
 <?php include('includes/header.php');?>
-        <div id="page-wrapper">
+<div id="page-wrapper">
 
-            <div class="container-fluid">
+    <div class="container-fluid">
 
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Active Clients <small>List</small>
-                        </h1>
-                       
-                    </div>
-                </div>
-                <!-- /.row -->
-
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    Active Clients <small>List</small>
+                </h1>
                 
-                <div class="row">
-                    
-                    <div class="col-lg-12">
-                        
-                        <div class="table-responsive">
-                        <ol class="breadcrumb">
-                                            
-                                        </ol>
-                        </div>
-                            <table id="service_table" class="table table-bordered table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Email</th>
-                                        <th>EDIT INFO</th>
-                                        <th>RELOAD CARD</th>
-                                        <th>DISABLE CLIENT</th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbody">
-                                </tbody>
-                            </table>
-                        
-                    </div>
-                </div>
-                <!-- /.row -->
-                 
-                 <?php include ('includes/info_form.php'); ?>
-                
-                
-
             </div>
-            <!-- /.container-fluid -->
-
         </div>
-        <!-- /#page-wrapper -->
+        <!-- /.row -->
+
+        
+        <div class="row">
+            
+            <div class="col-lg-12">
+                
+                <div class="table-responsive">
+                    <ol class="breadcrumb">
+                        
+                    </ol>
+                </div>
+                <table id="service_table" class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>EDIT INFO</th>
+                            <th>RELOAD CARD</th>
+                            <th>DISABLE CLIENT</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+        <!-- /.row -->
+        
+        <?php include ('includes/info_form.php'); ?>
+        
+        
 
     </div>
-    <!-- /#wrapper -->
+    <!-- /.container-fluid -->
 
-    
+</div>
+<!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+
 
 </body>
 
 
 <?php include('includes/footer.php');?>
 <script>
-$(document).ready(function(){
+    $(document).ready(function(){
     /***
         Returns static vars to only be used in table
         list ajax call
         !!!change var action according to page
-    ***/
-    function tablerequest(){
-        this.request = "list";
-        this.action = 9;
+        ***/
+        function tablerequest(){
+            this.request = "list";
+            this.action = 9;
         }
     //table request object
     var param= new tablerequest();
@@ -86,58 +86,58 @@ $(document).ready(function(){
 
     
     table=$('#service_table').DataTable({
-                             
-                              "processing": true,
-                              "ajax": {
-                                "url": "../controller/page_request.php?request="+param.request+"&action="+param.action,
-                                },
-                                columns: [
-                                    { data: 'firstname' },  
-                                    { data: 'lastname' },
-                                    { data: 'email' },  
-                                    
-                                    { data: 'button1' },
-                                    { data: 'button2' },
-                                    { data: 'button3' } 
-                                ]
-    });
+       
+      "processing": true,
+      "ajax": {
+        "url": "../controller/page_request.php?request="+param.request+"&action="+param.action,
+    },
+    columns: [
+    { data: 'firstname' },  
+    { data: 'lastname' },
+    { data: 'email' },  
+    
+    { data: 'button1' },
+    { data: 'button2' },
+    { data: 'button3' } 
+    ]
+});
 
     /***
         Event triggers customer information display
         updates DB with locked flag ->limits view to current user
-    ***/
-    $(".lock_item").live('click', function(event){
+        ***/
+        $(".lock_item").live('click', function(event){
         //get the ID
-             cust_id=$(this).attr('id');
-             locked = 1;
+        cust_id=$(this).attr('id');
+        locked = 1;
             //make sure no white space is before or after id value
-              $.trim(cust_id);
+            $.trim(cust_id);
             var request="review";
             //Status=active APP 
             var action=9;
-              
-                $.ajax({
-                    url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
-                    
-                    success:function(result){
-                        var obj1 = $.parseJSON(result);
+            
+            $.ajax({
+                url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
+                
+                success:function(result){
+                    var obj1 = $.parseJSON(result);
                         //Load Dropdown Options
                         var options = '<option title="" value="0">--EMT STATUS--</option>';
-                            
+                        
                         for (var i = 0; i < obj1.EAL.length; i++) {
-                                options += '<option value="' + obj1.EAL[i].ps_id + '">' + obj1.EAL[i].display + '</option>';
-                            }
-                                $("#audit_emt").html(options); 
+                            options += '<option value="' + obj1.EAL[i].ps_id + '">' + obj1.EAL[i].display + '</option>';
+                        }
+                        $("#audit_emt").html(options); 
                         var options = '<option title="" value="0">--INFO STATUS--</option>';
-                            
+                        
                         for (var i = 0; i < obj1.IAL.length; i++) {
-                                options += '<option value="' + obj1.IAL[i].ps_id + '">' + obj1.IAL[i].display + '</option>';
-                            }
-                                $("#audit_info").html(options); 
+                            options += '<option value="' + obj1.IAL[i].ps_id + '">' + obj1.IAL[i].display + '</option>';
+                        }
+                        $("#audit_info").html(options); 
                         var options = '<option title="" value="0">--CONTRACT STATUS--</option>';
                         for (var i = 0; i < obj1.CAL.length; i++) {
-                                options += '<option value="' + obj1.CAL[i].ps_id + '">' + obj1.CAL[i].display + '</option>';
-                            }
+                            options += '<option value="' + obj1.CAL[i].ps_id + '">' + obj1.CAL[i].display + '</option>';
+                        }
                         $("#audit_contract").html(options); 
                         
                         if(obj1.islocked == 0)
@@ -187,122 +187,141 @@ $(document).ready(function(){
                             
                             //$("#audit_contract").val(obj1.contract_id);
                             
-                             
+                            
                             
                              //if(obj1.contract_id==18){$('#contract_checkbox').bootstrapToggle('on')}else{$('#contract_checkbox').bootstrapToggle('off')}
                              $("#audit_emt").val(obj1.emt_id);
                              if(obj1.emt_id==12){$('#emt_checkbox').bootstrapToggle('on')}else{$('#emt_checkbox').bootstrapToggle('off')}
-                             $("#audit_info").val(obj1.info_id);
-                             if(obj1.info_id==6){$('#info_checkbox').bootstrapToggle('on')}else{$('#info_checkbox').bootstrapToggle('off')}
+                               $("#audit_info").val(obj1.info_id);
+                           if(obj1.info_id==6){$('#info_checkbox').bootstrapToggle('on')}else{$('#info_checkbox').bootstrapToggle('off')}
                             //status checkbox this.prop('checked')
-                            table.ajax.reload();
-                        }
-                        else
-                        {
-                            alert("sorry this record is locked");
-                            $( ".lockedbtn" ).trigger( "click" );
-                            table.ajax.reload();
-                            
+                        if(obj1.contract_id==18){$('#audit_checkbox').bootstrapToggle('on')}else{$('#audit_checkbox').bootstrapToggle('off')}
+                        $("#comments_area").html(obj1.COMMENT);
+                        table.ajax.reload();
+                    }
+                    else
+                    {
+                        alert("sorry this record is locked");
+                        $( ".lockedbtn" ).trigger( "click" );
+                        table.ajax.reload();
+                        
                             //
                         }
                     }
                 }); 
-            
-            
-            event.preventDefault(); 
-    });
-     $('#audit_emt').change(function(){
-        if($('#audit_emt').val() == 12) {
-            $('#emt_checkbox').bootstrapToggle('on')
-        } else {
-            $('#emt_checkbox').bootstrapToggle('off')
-        } 
-    }); 
-     $('#audit_info').change(function(){
-        if($('#audit_info').val() == 6) {
-            $('#info_checkbox').bootstrapToggle('on')
-        } else {
-            $('#info_checkbox').bootstrapToggle('off')
-        } 
-    }); 
-    
-    $('#audit_contract').change(function(){
-        if($('#audit_contract').val() == 18) {
-            $('#contract_checkbox').bootstrapToggle('on')
-        } else {
-            $('#contract_checkbox').bootstrapToggle('off')
-        } 
-    }); 
-    
-        $(".lockedbtn").live('click', function(event){
+
+
+event.preventDefault(); 
+});
+$('#audit_emt').change(function(){
+    if($('#audit_emt').val() == 12) {
+        $('#emt_checkbox').bootstrapToggle('on')
+    } else {
+        $('#emt_checkbox').bootstrapToggle('off')
+    } 
+}); 
+$('#audit_info').change(function(){
+    if($('#audit_info').val() == 6) {
+        $('#info_checkbox').bootstrapToggle('on')
+    } else {
+        $('#info_checkbox').bootstrapToggle('off')
+    } 
+}); 
+
+$('#audit_contract').change(function(){
+    if($('#audit_contract').val() == 18) {
+        $('#contract_checkbox').bootstrapToggle('on')
+    } else {
+        $('#contract_checkbox').bootstrapToggle('off')
+    } 
+}); 
+
+$(".lockedbtn").live('click', function(event){
         //Status=NEW APP must be used but has no effect here
         
-            var action=0;
-            var request="list";
-            $.ajax({
-                    url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
-                    success:function(result){table.ajax.reload();}
-                    
-                }); 
+        var action=0;
+        var request="list";
+        $.ajax({
+            url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
+            success:function(result){table.ajax.reload();}
+            
+        }); 
     }); 
-     $('.submit_info').live('click', function(event){
-        
-            var action=9;
-            var request="edit";
+$('.submit_info').live('click', function(event){
+    notie.confirm('Confirm?', 'Yes', 'Cancel', function() {
+     notie.alert(1, 'Done!', 2);
+     var action=9;
+     var request="change_flag";
             //alert($('#info_form').serialize());
             $.ajax({
-                    url:'../controller/page_request.php?request='+request+'&action='+action,
-                    data:$('#info_form').serialize(),
-                    success:function(result){ 
-                        BootstrapDialog.show({
-                            size: BootstrapDialog.SIZE_LARGE,
-                             message: result,
-                             buttons: [ {
-                                label: 'Close',
-                                    action: function(dialogItself){
-                                    dialogItself.close();
-                                 }
-                            }]
-                         });
+                url:'../controller/page_request.php?request='+request+'&action='+action,
+                data:$('#info_form').serialize(),
+                success:function(result){ 
+                    BootstrapDialog.show({
+                        size: BootstrapDialog.SIZE_LARGE,
+                        message: result,
+                        buttons: [ {
+                            label: 'Close',
+                            action: function(dialogItself){
+                                dialogItself.close();
+                            }
+                        }]
+                    });
                     
                     table.ajax.reload();
                     
-                    }
-                    
-                });
-                event.preventDefault();
-    }); 
- $(".disable").live('click', function(event){
+                }
+                
+            });
+        });
+    event.preventDefault();
+}); 
+$(".disable").live('click', function(event){
         //Status=unlocked=0 must be used but has no effect here
-        
-        var action=5;
-        var request="change_flag";
+        notie.confirm('Confirm?', 'Yes', 'Cancel', function() {
+         notie.alert(1, 'Done!', 2);
+         var action=5;
+         var request="change_flag";
          //get the ID
-             cust_id=$(this).attr('id');
-            
+         cust_id=$(this).attr('id');
+         
             //make sure no white space is before or after id value
-              $.trim(cust_id);
-        $.ajax({
-                    url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
-                    success:function(result){table.ajax.reload();}
-                    
-                });
+            $.trim(cust_id);
+            $.ajax({
+                url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
+                success:function(result){table.ajax.reload();}
+                
+            });
+        });
     }); 
-    $(".exit").live('click', function(event){
+$(".exit").live('click', function(event){
         //Status=unlocked=0 must be used but has no effect here
         
         var action=0;
         var request="unlock_app";
         $.ajax({
-                    url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
-                    success:function(result){table.ajax.reload();}
-                    
-                });
+            url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
+            success:function(result){table.ajax.reload();}
+            
+        });
     }); 
+$("#add_comment").live('click', function(event){
+        //Status=NEW APP must be used but has no effect here
+        var action=0;
+        var request="add_comment";
+        $.ajax({
+            url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id+'&info_comment='+$('#info_comment').val(),
+            success:function(result){
+                $("#comments_area").html(result);
+                table.ajax.reload();
 
-    $(window).bind('beforeunload',function(locked){
+            }
+            
+        });
+    });
+$(window).bind('beforeunload',function(locked){
         //do something
-        if(locked)
+        if(locked )
         {       
             
             $( ".exit" ).trigger( "click" );

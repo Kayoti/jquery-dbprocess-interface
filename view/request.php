@@ -1,81 +1,81 @@
 <?php include('includes/header.php');?>
-        <div id="page-wrapper">
+<div id="page-wrapper">
 
-            <div class="container-fluid">
+	<div class="container-fluid">
 
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Requests <small>New requests List</small>
-                        </h1>
-                       
-                    </div>
-                </div>
-                <!-- /.row -->
-
-                
-				<div class="row">
-                    
-                    <div class="col-lg-12">
-                        
-                        <div class="table-responsive">
-						<ol class="breadcrumb">
-											<li class="active">
-												<i class="fa fa-bell"></i> 
-											</li>
-										</ol>
-                        </div>
-                            <table id="service_table" class="table table-bordered table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Email</th>
-                                        <th>EMT Status</th>
-                                        <th>INFO Status</th>
-                                        <th>CONTRACT Status</th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-								<tbody id="tbody">
-								</tbody>
-                            </table>
-						
-                    </div>
-                </div>
-                <!-- /.row -->
-				 
-				 <?php include ('includes/info_form.php'); ?>
+		<!-- Page Heading -->
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">
+					Requests <small>New requests List</small>
+				</h1>
 				
-                
+			</div>
+		</div>
+		<!-- /.row -->
 
-            </div>
-            <!-- /.container-fluid -->
+		
+		<div class="row">
+			
+			<div class="col-lg-12">
+				
+				<div class="table-responsive">
+					<ol class="breadcrumb">
+						<li class="active">
+							<i class="fa fa-bell"></i> 
+						</li>
+					</ol>
+				</div>
+				<table id="service_table" class="table table-bordered table-hover table-striped">
+					<thead>
+						<tr>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Email</th>
+							<th>EMT Status</th>
+							<th>INFO Status</th>
+							<th>CONTRACT Status</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody id="tbody">
+					</tbody>
+				</table>
+				
+			</div>
+		</div>
+		<!-- /.row -->
+		
+		<?php include ('includes/info_form.php'); ?>
+		
+		
 
-        </div>
-        <!-- /#page-wrapper -->
+	</div>
+	<!-- /.container-fluid -->
 
-    </div>
-    <!-- /#wrapper -->
+</div>
+<!-- /#page-wrapper -->
 
-    
+</div>
+<!-- /#wrapper -->
+
+
 
 </body>
 
 
 <?php include('includes/footer.php');?>
 <script>
-$(document).ready(function(){
+	$(document).ready(function(){
 	/***
 		Returns static vars to only be used in table
 		list ajax call
 		!!!change var action according to page
-	***/
-	function tablerequest(){
-		this.request = "list";
-		this.action = 0;
+		***/
+		function tablerequest(){
+			this.request = "list";
+			this.action = 0;
 		}
 	//table request object
 	var param= new tablerequest();
@@ -87,59 +87,61 @@ $(document).ready(function(){
 	var locked = 0;
 
 	
-						  table=$('#service_table').DataTable({
-							 
-							  "processing": true,
-							  "ajax": {
-								"url": "../controller/page_request.php?request="+param.request+"&action="+param.action,
-								},
-								columns: [
-									{ data: 'firstname' },  
-									{ data: 'lastname' },
-									{ data: 'email' },  
-									{ data: 'emt' },  
-									{ data: 'personal' },  
-									{ data: 'contract' },  
-									{ data: 'button1' } 
-								]
-						  });
+	table=$('#service_table').DataTable({
+		
+		"processing": true,
+		"ajax": {
+			"url": "../controller/page_request.php?request="+param.request+"&action="+param.action,
+		},
+		columns: [
+		{ data: 'firstname' },  
+		{ data: 'lastname' },
+		{ data: 'email' },  
+		{ data: 'emt' },  
+		{ data: 'personal' },  
+		{ data: 'contract' },  
+		{ data: 'button1' } 
+		]
+	});
 
 	/***
 		Event triggers customer information display
 		updates DB with locked flag ->limits view to current user
-	***/
-	$(".lock_item").live('click', function(event){
+		***/
+		$(".lock_item").live('click', function(event){
 		//get the ID
-			 cust_id=$(this).attr('id');
-			 locked = 1;
+		cust_id=$(this).attr('id');
+		locked = 1;
 			//make sure no white space is before or after id value
-			  $.trim(cust_id);
+			$.trim(cust_id);
 			var request="review";
 			//Status=NEW APP 
 			var action=0;
-			  
-			  	$.ajax({
-					url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
-					
-					success:function(result){
-						var obj1 = $.parseJSON(result);
+			
+			$.ajax({
+				url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
+				
+				success:function(result){
+					var obj1 = $.parseJSON(result);
 						//Load Dropdown Options
 						var options = '<option title="" value="0">--EMT STATUS--</option>';
-							
+						
 						for (var i = 0; i < obj1.EAL.length; i++) {
-								options += '<option value="' + obj1.EAL[i].ps_id + '">' + obj1.EAL[i].display + '</option>';
-							}
-								$("#audit_emt").html(options); 
+							options += '<option value="' + obj1.EAL[i].ps_id + '">' + obj1.EAL[i].display + '</option>';
+						}
+						$("#audit_emt").html(options); 
 						var options = '<option title="" value="0">--INFO STATUS--</option>';
-							
+						
 						for (var i = 0; i < obj1.IAL.length; i++) {
-								options += '<option value="' + obj1.IAL[i].ps_id + '">' + obj1.IAL[i].display + '</option>';
-							}
-								$("#audit_info").html(options); 
+							options += '<option value="' + obj1.IAL[i].ps_id + '">' + obj1.IAL[i].display + '</option>';
+						}
+						$("#audit_info").html(options); 
+						
+
 						var options = '<option title="" value="0">--CONTRACT STATUS--</option>';
 						for (var i = 0; i < obj1.CAL.length; i++) {
-								options += '<option value="' + obj1.CAL[i].ps_id + '">' + obj1.CAL[i].display + '</option>';
-							}
+							options += '<option value="' + obj1.CAL[i].ps_id + '">' + obj1.CAL[i].display + '</option>';
+						}
 						$("#audit_contract").html(options); 
 						
 						if(obj1.islocked == 0)
@@ -187,15 +189,19 @@ $(document).ready(function(){
 							//status dropdowns 
 							
 							
-							//$("#audit_contract").val(obj1.contract_id);
 							
-							 
 							
-							 //if(obj1.contract_id==18){$('#contract_checkbox').bootstrapToggle('on')}else{$('#contract_checkbox').bootstrapToggle('off')}
-							 $("#audit_emt").val(obj1.emt_id);
-							 if(obj1.emt_id==12){$('#emt_checkbox').bootstrapToggle('on')}else{$('#emt_checkbox').bootstrapToggle('off')}
-							 $("#audit_info").val(obj1.info_id);
-							 if(obj1.info_id==6){$('#info_checkbox').bootstrapToggle('on')}else{$('#info_checkbox').bootstrapToggle('off')}
+							
+							
+							
+							$("#audit_emt").val(obj1.emt_id);
+							if(obj1.emt_id==12){$('#emt_checkbox').bootstrapToggle('on')}else{$('#emt_checkbox').bootstrapToggle('off')}
+								$("#audit_info").val(obj1.info_id);
+							if(obj1.info_id==6){$('#info_checkbox').bootstrapToggle('on')}else{$('#info_checkbox').bootstrapToggle('off')}
+								$("#audit_contract").val(obj1.contract_id);
+							if(obj1.contract_id==18){$('#audit_checkbox').bootstrapToggle('on')}else{$('#audit_checkbox').bootstrapToggle('off')}
+
+								$("#comments_area").html(obj1.COMMENT);	
 							//status checkbox this.prop('checked')
 							table.ajax.reload();
 						}
@@ -209,93 +215,101 @@ $(document).ready(function(){
 						}
 					}
 				}); 
-			
-			
-			event.preventDefault();	
-	});
-	 $('#audit_emt').change(function(){
-        if($('#audit_emt').val() == 12) {
-            $('#emt_checkbox').bootstrapToggle('on')
-        } else {
-            $('#emt_checkbox').bootstrapToggle('off')
-        } 
-	}); 
-	 $('#audit_info').change(function(){
-        if($('#audit_info').val() == 6) {
-            $('#info_checkbox').bootstrapToggle('on')
-        } else {
-            $('#info_checkbox').bootstrapToggle('off')
-        } 
-	}); 
-	
-	$('#audit_contract').change(function(){
-        if($('#audit_contract').val() == 18) {
-            $('#contract_checkbox').bootstrapToggle('on')
-        } else {
-            $('#contract_checkbox').bootstrapToggle('off')
-        } 
-	}); 
-	
-		$(".lockedbtn").live('click', function(event){
+
+
+event.preventDefault();	
+});
+$('#audit_emt').change(function(){
+	if($('#audit_emt').val() == 12) {
+		$('#emt_checkbox').bootstrapToggle('on')
+	} else {
+		$('#emt_checkbox').bootstrapToggle('off')
+	} 
+}); 
+$('#audit_info').change(function(){
+	if($('#audit_info').val() == 6) {
+		$('#info_checkbox').bootstrapToggle('on')
+	} else {
+		$('#info_checkbox').bootstrapToggle('off')
+	} 
+}); 
+
+$('#audit_contract').change(function(){
+	if($('#audit_contract').val() == 18) {
+		$('#contract_checkbox').bootstrapToggle('on')
+	} else {
+		$('#contract_checkbox').bootstrapToggle('off')
+	} 
+}); 
+
+$(".lockedbtn").live('click', function(event){
 		//Status=NEW APP must be used but has no effect here
 		
-			var action=0;
-			var request="list";
-			$.ajax({
-					url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
-					success:function(result){table.ajax.reload();}
-					
-				}); 
+		var action=0;
+		var request="list";
+		$.ajax({
+			url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
+			success:function(result){table.ajax.reload();}
+			
+		}); 
 	});	
-	 $('.submit_info').live('click', function(event){
+$('.submit_info').live('click', function(event){
+	notie.confirm('Confirm?', 'Yes', 'Cancel', function() {
+		notie.alert(1, 'Done!', 2);
 		
-			var action=0;
-			var request="edit";
+		var action=0;
+		var request="edit";
 			//alert($('#info_form').serialize());
 			$.ajax({
-					url:'../controller/page_request.php?request='+request+'&action='+action,
-					data:$('#info_form').serialize(),
-					success:function(result){ 
-						BootstrapDialog.show({
-            				size: BootstrapDialog.SIZE_LARGE,
-           					 message: result,
-           					 buttons: [ {
-                				label: 'Close',
-                					action: function(dialogItself){
-                    				dialogItself.close();
-               					 }
-            				}]
-       					 });
+				url:'../controller/page_request.php?request='+request+'&action='+action,
+				data:$('#info_form').serialize(),
+				success:function(result){ 
 					
+					$("#comments_area").html(result);
 					table.ajax.reload();
 					
-					}
-					
-				});
-				event.preventDefault();
-	}); 
-	$(".exit").live('click', function(event){
+				}
+				
+			});
+		});
+	event.preventDefault();
+}); 
+$(".exit").live('click', function(event){
 		//Status=NEW APP must be used but has no effect here
 		
 		var action=0;
 		var request="unlock_app";
 		$.ajax({
-					url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
-					success:function(result){table.ajax.reload();}
-					
-				});
+			url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
+			success:function(result){table.ajax.reload();}
+			
+		});
 	});	
-	$(window).bind('beforeunload',function(locked){
+$("#add_comment").live('click', function(event){
+		//Status=NEW APP must be used but has no effect here
+		var action=0;
+		var request="add_comment";
+		$.ajax({
+			url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id+'&info_comment='+$('#info_comment').val(),
+			success:function(result){
+				$("#comments_area").html(result);
+				table.ajax.reload();
+
+			}
+			
+		});
+	});
+$(window).bind('beforeunload',function(locked){
 		//do something
-   		if(locked)
+		if(locked )
 		{		
 			
 			$( ".exit" ).trigger( "click" );
-			return 'are you sure you want to leave?';
+			return 'Confirm';
 		}
 	});	
 });
- 
+
 </script>
 
 </html>

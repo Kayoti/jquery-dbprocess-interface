@@ -34,12 +34,42 @@
 			return $list;
 		  
 		}
-		
+		public function addComment($cust_id, $comment, $user_id) 
+		{
+			$list=db_query(sprintf(ADDCOMMENT, $cust_id,$comment,$user_id),0,0);
+			
+			return $list;
+		  
+		}
 		public function getapps($flag) 
 		{
 			$list=db_query(sprintf(GETNEW_APPS,$flag),0);
 			
 			return $list;
+		  
+		}
+
+		public function getreloads($flag) 
+		{
+			$list=db_query(sprintf(GETRELOADS,$flag),0);
+			
+			return $list;
+		  
+		}
+
+		public function getComments($cust_id) 
+		{
+			$list=db_query(sprintf(GETCOMMENTS,$cust_id),0);
+			
+			return $list;
+		  
+		}
+
+		public function getreloadinfo($id) 
+		{
+			$list=db_query(sprintf(GETRELOADINFO,$id),0);
+			
+			return $list[0];
 		  
 		}
 		/***
@@ -48,9 +78,9 @@
 			@param string error message
 			return array
 		***/
-		public function updatestatus($id,$flag,$msg) 
+		public function updatestatus($id,$flag,$user,$msg) 
 		{
-			$list=db_query(sprintf(UPDATE_STATUS,$id,$flag,$msg),0,0);
+			$list=db_query(sprintf(UPDATE_STATUS,$id,$flag,$user,$msg),0,0);
 			return $list;
 			 
 		  
@@ -68,6 +98,19 @@
 		  
 		}
 		
+
+		//MARKRELOADPROCESSED
+		/***
+			@param int customer id
+			return array
+			
+		***/
+		public function markreloadprocessed($id,$user) 
+		{
+			$list=db_query(sprintf(MARKRELOADPROCESSED,$id,$user),0);
+			return $list[0]; 
+		}
+
 		/***
 			@param int customer id
 			return array
@@ -79,6 +122,16 @@
 			return $list[0];
 			 
 		  
+		}
+		/***
+			@param int customer id
+			return array
+			
+		***/
+		public function getclientcardinfo($id) 
+		{
+			$list=db_query(sprintf(GETCARD,$id),0);
+			return $list[0];		  
 		}
 		/***
 			@param int customer id
