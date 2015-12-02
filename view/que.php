@@ -107,10 +107,11 @@
         updates DB with locked flag ->limits view to current user
         ***/
         $(".lock_item").live('click', function(event){
+            //get the ID
+        cust_id=$(this).attr('id');
           notie.confirm('Confirm?', 'Yes', 'Cancel', function() {
              notie.alert(1, 'Done!', 2);
-        //get the ID
-        cust_id=$(this).attr('id');
+        
         
         //make sure no white space is before or after id value
         $.trim(cust_id);

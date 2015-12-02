@@ -1,7 +1,7 @@
 <?php 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-require("../model/login_config.php"); 
+require("model/login_config.php"); 
 $submitted_username = ''; 
 if(!empty($_POST)){ 
     $query = " 
@@ -41,7 +41,7 @@ if(!empty($_POST)){
         unset($row['salt']); 
         unset($row['password']); 
         $_SESSION['user'] = $row;  
-        header("Location: dashboard.php"); 
+        header("Location: view/dashboard.php"); 
         die("Redirecting to: index.php"); 
     } 
     else{ 
@@ -61,22 +61,22 @@ if(!empty($_POST)){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Responsive JQUERY Admin Panel">
     <meta name="author" content="Wael Ali">
-    
-    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="icon" type="image/ico" href="view/assets/images/favicon.ico"></link> 
+    <link rel="shortcut icon" href="view/assets/images/favicon.ico">
 
     <title>Login Page | Card Services Admin Panel</title>
 
     <!-- Bootstrap CSS -->    
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="view/assets/css/bootstrap.min.css" rel="stylesheet">
     <!-- bootstrap theme -->
-    <link href="assets/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="view/assets/css/bootstrap-theme.css" rel="stylesheet">
     <!--external css-->
     <!-- font icon -->
-    <link href="assets/css/elegant-icons-style.css" rel="stylesheet" />
-    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="view/assets/css/elegant-icons-style.css" rel="stylesheet" />
+    <link href="view/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <!-- Custom styles -->
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/style-responsive.css" rel="stylesheet" />
+    <link href="view/assets/css/style.css" rel="stylesheet">
+    <link href="view/assets/css/style-responsive.css" rel="stylesheet" />
 
     
 </head>

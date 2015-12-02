@@ -56,7 +56,7 @@
                         <i class="fa fa-tasks fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div >Disabled Apps</div>
+                        <div >Disabled Clients</div>
                         <div id="Disabled" class="huge"></div>
                     </div>
                 </div>

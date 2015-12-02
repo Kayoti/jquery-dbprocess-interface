@@ -1,6 +1,7 @@
 <?php
 include ('../model/common.php');
 include ('classes/dbdisplay.php');
+include ('lib/PHPMailer');
 	//print_r ($_SESSION);exit;
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -38,8 +39,8 @@ if(isset($_GET["request"]) && isset($_GET["action"]))
 				if($action == 9)
 				{
 					$newarray["button1"] = "<input data-toggle='modal' href='#form-content' value='Edit' class='lock_item btn btn-lg btn-primary' type='button' id='".$listArray["cust_id"]."' />";
-					$newarray["button2"] = "<input data-toggle='modal' href='#form-reload' value='Reload' class='reload btn btn-lg btn-warning' type='button' id='".$listArray["cust_id"]."' />";
-					$newarray["button3"] = "<input data-toggle='modal'  value='Disable' class='disable btn btn-lg btn-danger' type='button' id='".$listArray["cust_id"]."' />";
+					$newarray["button2"] = "<input value='Reload' class='reload btn btn-lg btn-warning' type='button' id='".$listArray["cust_id"]."' />";
+					$newarray["button3"] = "<input value='Disable' class='disable btn btn-lg btn-danger' type='button' id='".$listArray["cust_id"]."' />";
 				}
 				else{
 					$newarray["button1"] = "<input data-toggle='modal' href='#form-content' value='Process' class='lock_item btn btn-lg btn-primary' type='button' id='".$listArray["cust_id"]."' />";
@@ -135,7 +136,12 @@ if(isset($_GET["request"]) && isset($_GET["action"]))
 				$counts['RC'] = $requests['num'];
 				$requests = $dbobj->getappcount(9);
 				$counts['AC'] = $requests['num'];
-				
+				$requests = $dbobj->getappcount(11);
+				$counts['RELOAD_NEW'] = $requests['num'];
+				$requests = $dbobj->getappcount(12);
+				$counts['RELOAD_OK'] = $requests['num'];
+				$requests = $dbobj->getappcount(13);
+				$counts['RELOAD_ERR'] = $requests['num'];
 				echo json_encode($counts);
 				break;
 				case "edit":
@@ -172,7 +178,77 @@ if(isset($_GET["request"]) && isset($_GET["action"]))
 				$update=$dbobj->updatelockstatus($cust_id,$action);
 				echo $update;
 				break;	
-				
+					//display DB result based on flag
+				case "reloads":
+				//list info from DB
+
+				$list=$dbobj->getreloads($action);
+				//Build Buttons
+
+				if(!empty($list)){
+					foreach ($list as $key => $listArray) {
+					//build button
+						$newarray = $listArray; 
+
+						$newarray["button1"] = "<input  value='Process' class='submit_info btn btn-md btn-primary' type='button' id='".$listArray["reload_id"]."' />";
+						if($action==2){
+							$newarray["button2"] = "<input  value='View' class='err_msg btn btn-md btn-danger' type='button' id='".$listArray["result"]."' />";
+						}
+						$newarray["button3"] = "<input  value='Remind (".$listArray["remind"].")' class='remind btn btn-md btn-warning' type='button' id='".$listArray["reload_id"]."' />";
+						//put in return array
+						$output_arr[] = $newarray;
+					}
+					$return_arr["aaData"] = $output_arr;
+				}
+				else {	 
+
+					$newarray["loaddate"] = "";
+					if($action==2){$newarray["button2"] = "";}else{$newarray["comf_no"] = "";}
+
+					$newarray["firstname"] = "";
+					$newarray["lastname"] = "";
+					$newarray["loadamount"] = "";
+					$newarray["secret"] = "";
+					$newarray["cardnums"] = "";
+
+
+					$newarray["button1"] = "";
+					$newarray["button3"] = "";
+
+					$return_arr["aaData"] = $newarray;
+				}
+				echo json_encode($return_arr);	
+				break;
+				case "remind":
+				//list info from DB
+
+				$list=$dbobj->updatereminder($action);
+				/*if($list['sendemail'] != 0){
+					
+					//MailCode	
+					$mail = new PHPMailer;
+					$mail->isSMTP();                                      // Set mailer to use SMTP
+					$mail->Host = 'smtp.1and1.com';  // Specify main and backup SMTP servers
+					$mail->SMTPAuth = true;                               // Enable SMTP authentication
+					$mail->Username = 'outgoing@canadacreditcard.ca';    // SMTP username
+					$mail->Password = 'Hotline67';                           // SMTP password
+					$mail->SMTPSecure = 'TLS';                            // Enable TLS encryption, `ssl` also accepted
+					$mail->Port = 25;                                    // TCP port to connect to
+					$mail->From = 'info@canadacreditcard.ca';
+					$mail->FromName = 'canadacreditcard.ca';
+					
+					//$mail->addAddress($list['email']); // Add a recipient
+					      
+					$mail->isHTML(true);                                  // Set email format to HTML
+					$mail->Subject = 'EMT Reminder canadacreditcard.ca';
+					$mail->Body    = '<style>';
+
+					if(!$mail->send()) {echo 'Mailer Error: ' . $mail->ErrorInfo;} 
+					else { echo "Success";}
+					
+					}*/
+					
+				break;
 				
 			default:// DEFAULT this is where fuck ups go to die
 			echo "Error:unknown request! Please Contact Admin";

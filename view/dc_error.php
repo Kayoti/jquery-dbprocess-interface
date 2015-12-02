@@ -251,10 +251,11 @@ $(".lockedbtn").live('click', function(event){
 		}); 
 	});	
 $('.submit_info').live('click', function(event){
+	var action=0;
+		var request="edit";
 	notie.confirm('Confirm?', 'Yes', 'Cancel', function() {
 		notie.alert(1, 'Done!', 2);
-		var action=0;
-		var request="edit";
+		
 			//alert($('#info_form').serialize());
 			$.ajax({
 				url:'../controller/page_request.php?request='+request+'&action='+action,

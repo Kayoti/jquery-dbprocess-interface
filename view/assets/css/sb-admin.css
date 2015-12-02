@@ -8,7 +8,7 @@
 
 body {
     margin-top: 100px;
-    background-color: #222;
+    background-color: #394a59;
 }
 
 @media(min-width:768px) {
@@ -57,7 +57,7 @@ body {
     padding-top: 15px;
     padding-bottom: 15px;
     line-height: 20px;
-    color: #999;
+    color: #ddd;
 }
 
 .top-nav>li>a:hover,
@@ -66,7 +66,7 @@ body {
 .top-nav>.open>a:hover,
 .top-nav>.open>a:focus {
     color: #fff;
-    background-color: #000;
+    background-color: #394a59;
 }
 
 .top-nav>.open>.dropdown-menu {
@@ -122,7 +122,7 @@ ul.alert-dropdown {
         border: none;
         border-radius: 0;
         overflow-y: auto;
-        background-color: #222;
+        background-color: #394a59;
         bottom: 0;
         overflow-x: hidden;
         padding-bottom: 40px;
@@ -135,7 +135,7 @@ ul.alert-dropdown {
     .side-nav li a:hover,
     .side-nav li a:focus {
         outline: none;
-        background-color: #000 !important;
+        background-color: #394a59 ;
     }
 }
 
@@ -147,7 +147,7 @@ ul.alert-dropdown {
     display: block;
     padding: 10px 15px 10px 38px;
     text-decoration: none;
-    color: #999;
+    color: #ddd;
 }
 
 .side-nav>li>ul>li>a:hover {
@@ -173,72 +173,72 @@ ul.alert-dropdown {
 }
 
 .panel-green {
-    border-color: #5cb85c;
+    border-color: #5cb85c !important;
 }
 
 .panel-green > .panel-heading {
-    border-color: #5cb85c;
-    color: #fff;
-    background-color: #5cb85c;
+    border-color: #5cb85c !important;
+    color: #fff !important;
+    background-color: #5cb85c !important;
 }
 
 .panel-green > a {
-    color: #5cb85c;
+    color: #5cb85c !important;
 }
 
 .panel-green > a:hover {
-    color: #3d8b3d;
+    color: #3d8b3d !important;
 }
 
 .panel-red {
-    border-color: #d9534f;
+    border-color: #d9534f !important;
 }
 .panel-red > .panel-heading {
-    border-color: #d9534f;
-    color: #fff;
-    background-color: #d9534f;
+    border-color: #d9534f !important;
+    color: #fff !important;
+    background-color: #d9534f !important;
 }
 .panel-red > a {
-    color: #d9534f;
+    color: #d9534f !important;
 }
 
 .panel-red > a:hover {
-    color: #b52b27;
+    color: #b52b27 !important;
 }
 
 .panel-indego {
-    border-color: #D2527F;
+    border-color: #D2527F !important;
 }
 .panel-indego .panel-heading { 
-    border-color: #D2527F;
-    background-color: #D2527F;
-    color: #fff;
+    border-color: #D2527F !important;
+    background-color: #D2527F !important;
+    color: #fff !important;
 }
 .panel-indego > a {
-    color: #D2527F;
+    color: #D2527F !important;
 }
 
 .panel-indego > a:hover {
-    color: #b52b27;
+    color: #b52b27 !important;
 }
 
 
 
 
 .panel-yellow {
-    border-color: #f0ad4e;
+    border-color: #f0ad4e !important;
 }
 
 .panel-yellow > .panel-heading {
-    border-color: #f0ad4e;
-    color: #fff;
-    background-color: #f0ad4e;
+    border-color: #f0ad4e !important;
+    color: #fff !important;
+    background-color: #f0ad4e !important;
 }
 
 .panel-yellow > a {
-    color: #f0ad4e;
+    color: #f0ad4e !important;
 }
 
 .panel-yellow > a:hover {
-    color: #df8a13;
+    color: #df8a13 !important;
 }

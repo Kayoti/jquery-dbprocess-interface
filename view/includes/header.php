@@ -2,8 +2,8 @@
 require("../model/login_config.php");
 if(empty($_SESSION['user'])) 
 {
-    header("Location: index.php");
-    die("Redirecting to index.php"); 
+    header("Location: ../index.php");
+    die("Redirecting to ../index.php"); 
 }
 ?>
 <!DOCTYPE html>
@@ -14,8 +14,10 @@ if(empty($_SESSION['user']))
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<link rel="icon" type="image/ico" href="assets/images/favicon.ico"></link> 
+	<link rel='shortcut icon' type='image/x-icon' href='assets/images/favicon.ico' />
+    <meta name="description" content="Jquery Admin Panel">
+    <meta name="author" content="Wael Ali">
 
     <title>CashSlab Card Services</title>
 
