@@ -9,19 +9,19 @@
                 <h1 class="page-header">
                     QUE <small>List</small>
                 </h1>
-                
+
             </div>
         </div>
         <!-- /.row -->
 
-        
+
         <div class="row">
-            
+
             <div class="col-lg-12">
-                
+
                 <div class="table-responsive">
                     <ol class="breadcrumb">
-                        
+
                     </ol>
                 </div>
                 <table id="service_table" class="table table-bordered table-hover table-striped">
@@ -40,14 +40,14 @@
                     <tbody id="tbody">
                     </tbody>
                 </table>
-                
+
             </div>
         </div>
         <!-- /.row -->
-        
-        
-        
-        
+
+
+
+
 
     </div>
     <!-- /.container-fluid -->
@@ -77,28 +77,28 @@
         }
     //table request object
     var param= new tablerequest();
-    
+
     //GLOBAL
     var result;
     var table;
     var cust_id;
     var locked = 0;
 
-    
+
     table=$('#service_table').DataTable({
-       
+
       "processing": true,
       "ajax": {
         "url": "../controller/page_request.php?request="+param.request+"&action="+param.action,
     },
     columns: [
-    { data: 'firstname' },  
+    { data: 'firstname' },
     { data: 'lastname' },
-    { data: 'email' },  
-    { data: 'emt' },  
-    { data: 'personal' },  
-    { data: 'contract' },  
-    { data: 'button1' } 
+    { data: 'email' },
+    { data: 'emt' },
+    { data: 'personal' },
+    { data: 'contract' },
+    { data: 'button1' }
     ]
 });
 
@@ -111,13 +111,15 @@
         cust_id=$(this).attr('id');
           notie.confirm('Confirm?', 'Yes', 'Cancel', function() {
              notie.alert(1, 'Done!', 2);
-        
-        
+
+
         //make sure no white space is before or after id value
         $.trim(cust_id);
-        var request="process";
-        //Status=QUE 
+        //Status=QUE
         var action=3;
+
+        //reassign request to handle que processing
+        var request="process";
         $.ajax({
             url:'../controller/dc_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
             success:function(result){
@@ -133,12 +135,13 @@
                     }]
                 });
                 table.ajax.reload(); }
-                
-            }); 
+
+            });
         
+
     });
-      });         
-}); 
+      });
+});
 </script>
 
 </html>

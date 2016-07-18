@@ -5,7 +5,7 @@ define('GETNEW_APPS', 'call getapps(%s);');
 define('GETRELOADS', 'call getReloads(%s);');
 define('GETRELOADINFO', 'call getReloadInfo(%s);');
 define('GETCUST_BYID', 'call getappbyid(%s);');
-define('UPDATE_STATUS', 'call changeAppStatus(%s,%s,"%s");');
+define('UPDATE_STATUS', 'call changeAppStatus(%s,%s,%s,"%s");');
 define('UPDATE_LOCKSTATUS', 'call lockcust(%s,%s);');
 define('GETAUDITDD', 'call getAuditDD(%s);');
 define('GETAPPCOUNT', 'call getappcount(%s);');
