@@ -38,6 +38,7 @@ if(isset($_GET["request"]) && isset($_GET["action"]))
 
                     if($action == 9)
                     {
+                        $newarray["button4"] = "<span id='client".$listArray["cust_id"]."'></span><input value='Current Balance' class='Availbalance btn btn-lg btn-warning' type='button' id='".$listArray["cust_id"]."' />";
                         $newarray["button1"] = "<input data-toggle='modal' href='#form-content' value='Edit' class='lock_item btn btn-lg btn-primary' type='button' id='".$listArray["cust_id"]."' />";
                         $newarray["button2"] = "<input value='Reload' class='reload btn btn-lg btn-warning' type='button' id='".$listArray["cust_id"]."' />";
                         $newarray["button3"] = "<input value='Disable' class='disable btn btn-lg btn-danger' type='button' id='".$listArray["cust_id"]."' />";
@@ -60,25 +61,54 @@ if(isset($_GET["request"]) && isset($_GET["action"]))
                     $newarray["firstname"] = "";
                     $newarray["lastname"] = "";
                     $newarray["email"] = "";
-
+                    $newarray["Balance"] = "";
+                    $newarray["button4"] = "";
                     $newarray["button1"] = "";
                     $newarray["button2"] = "";
                     $newarray["button3"] = "";
                 }
                 else{
+                    $newarray["createdOn"] = "";
                     $newarray["firstname"] = "";
                     $newarray["lastname"] = "";
                     $newarray["email"] = "";
+                    $newarray["initloadamount"] = "";
                     $newarray["emt"] = "";
                     $newarray["personal"] = "";
                     $newarray["contract"] = "";
-
+                    $newarray["leadstatus"] = "";
                     $newarray["button1"] = "";
                 }
                 $return_arr["aaData"] = $newarray;
             }
             echo json_encode($return_arr);
             break;
+        case "userlist":
+                //list info from DB
+
+                $list=$dbobj->getUser($action);
+                //Build Buttons
+
+                if(!empty($list)){
+
+                    foreach ($list as $key => $listArray) {
+                        //build button
+                        $newarray = $listArray;
+                        //put in return array
+                        $output_arr[] = $newarray;
+                    }
+                    $return_arr["aaData"] = $output_arr;
+                }
+                else {
+
+                        $newarray["username"] = "";
+                        $newarray["email"] = "";
+                        $newarray["status"] = "";
+
+                    $return_arr["aaData"] = $newarray;
+                }
+                echo json_encode($return_arr);
+                break;
         case "review":
 
             $list=$dbobj->getclientbyid($cust_id);
@@ -142,6 +172,8 @@ if(isset($_GET["request"]) && isset($_GET["action"]))
             $counts['RELOAD_OK'] = $requests['num'];
             $requests = $dbobj->getappcount(13);
             $counts['RELOAD_ERR'] = $requests['num'];
+            $requests = $dbobj->getappcount(14);
+            $counts['USER_COUNT'] = $requests['num'];
             echo json_encode($counts);
             break;
         case "edit":
@@ -237,9 +269,9 @@ if(isset($_GET["request"]) && isset($_GET["action"]))
                 $mail->Host = 'smtp.1and1.com';  // Specify main and backup SMTP servers
                 $mail->SMTPAuth = true;                               // Enable SMTP authentication
                 $mail->Username = 'outgoing@canadacreditcard.ca';                 // SMTP username
-            	$mail->Password = 'Hotline67';                            // SMTP password
-            	$mail->SMTPSecure = 'TLS';                            // Enable TLS encryption, `ssl` also accepted
-            	$mail->Port = 25;
+              	$mail->Password = 'Hotline67';                            // SMTP password
+              	$mail->SMTPSecure = 'TLS';                            // Enable TLS encryption, `ssl` also accepted
+              	$mail->Port = 25;
                 //$mail->SMTPDebug = 1;                          // TCP port to connect to
                 $mail->From = 'info@canadacreditcard.ca';
                 $mail->FromName = 'canadacreditcard.ca';

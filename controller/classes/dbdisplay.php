@@ -23,7 +23,7 @@
 		//public functions
 		/***
 			@param int  flag number
-			returns jason object of db data
+			returns json object of db data
 			refer to database for flag definitions
 			return array
 		***/
@@ -56,6 +56,14 @@
 
 		}
 
+		public function getUser($flag)
+		{
+			$list=db_query(sprintf(GETUSER,$flag),0);
+
+			return $list;
+
+		}
+
 		public function getComments($cust_id)
 		{
 			$list=db_query(sprintf(GETCOMMENTS,$cust_id),0);
@@ -72,14 +80,27 @@
 
 		}
 		/***
+			@param string mother_Info (customer mother maiden name)
+			@param string email (customer email)
+			@param string secret (customer secret code)
+			return array PANHASH
+		***/
+		public function getPanHash($mother_Info,$email,$secret)
+		{
+			$list=db_query(sprintf(GETACTIVATIONREQ,$mother_Info,$email,$secret),0);
+			return $list[0];
+
+
+		}
+		/***
 			@param int customer id
 			@param int flag
 			@param string error message
 			return array
 		***/
-		public function updatestatus($id,$flag,$user,$msg)
+		public function updatestatus($id,$flag,$user,$msg,$code)
 		{
-			$list=db_query(sprintf(UPDATE_STATUS,$id,$flag,$user,$msg),0,0);
+			$list=db_query(sprintf(UPDATE_STATUS,$id,$flag,$user,$msg,$code),0,0);
 			return $list;
 
 
@@ -129,6 +150,13 @@
 
 
 		}
+		public function getQueCustID($flag)
+		{
+			$list=db_query(sprintf(GETQUECUSTID,$flag),0);
+			return $list;
+
+
+		}
 		/***
 			@param int customer id
 			return array
@@ -138,6 +166,17 @@
 		{
 			$list=db_query(sprintf(GETCARD,$id),0);
 			return $list[0];
+		}
+		/***
+			@param int card id
+			@param int Available balance
+			return array
+
+		***/
+		public function updateclient_availbalance($id,$bal)
+		{
+			$list=db_query(sprintf(UPDATE_BALANCE,$id,$bal),0,0);
+			return $list;
 		}
 		/***
 			@param int customer id
@@ -190,6 +229,14 @@
 
 
 		}
+		public function updateLeadStatus($info)
+		{
+
+			$list=db_query(sprintf(UPDATE_LeadStatus,$info),0,0);
+			return $list;
+
+
+		}
 		/***
 			@param string customer id
 			@param string customer panhash
@@ -211,7 +258,7 @@
 		}
 		/***
 			@param string reload id
-			
+
 			return array customer info
 
 		***/

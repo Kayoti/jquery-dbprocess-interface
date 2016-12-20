@@ -3,13 +3,15 @@ include ('config.php');
 	//DEFINES
 define('GETNEW_APPS', 'call getapps(%s);');
 define('GETRELOADS', 'call getReloads(%s);');
+define('GETACTIVATIONREQ', 'call getActivationReq("%s","%s","%s");');
 define('GETRELOADINFO', 'call getReloadInfo(%s);');
 define('GETCUST_BYID', 'call getappbyid(%s);');
-define('UPDATE_STATUS', 'call changeAppStatus(%s,%s,%s,"%s");');
+define('UPDATE_STATUS', 'call changeAppStatus(%s,%s,%s,"%s",%s);');
 define('UPDATE_LOCKSTATUS', 'call lockcust(%s,%s);');
 define('GETAUDITDD', 'call getAuditDD(%s);');
 define('GETAPPCOUNT', 'call getappcount(%s);');
 define('UPDATE_APP', "call updateApp(%s);");
+define('UPDATE_LeadStatus', "call updateLeadStatus(%s);");
 
 define('ADDRELOAD', "call addReload(%s,%s,%s,%s,%s,'%s');");
 define('MARKRELOADPROCESSED', "call markReloadProcessed(%s,%s,'%s');");
@@ -21,7 +23,9 @@ define('GETCARD', "call getCardInfo(%s);");
 define('ADDCOMMENT', "call addComment('%s','%s','%s');");
 define('GETCOMMENTS', "call getComments(%s);");
 define('UPDATEREMINDER', "call addremind(%s);");
-
+define('GETUSER', "call getUser(%s);");
+define('GETQUECUSTID', 'call getQueueCustID(%s);');
+define('UPDATE_BALANCE', 'call updateAvailBalance(%s,%s);');
 //markReloadError
 	//END DEFINES
 

@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    QUE <small>List</small>
+                    QUEUE <small>List</small>
                 </h1>
 
             </div>
@@ -24,6 +24,11 @@
 
                     </ol>
                 </div>
+                <?php if($_SESSION['user']['username'] == 'admin'){ ?>
+                <div class="col-xs-9 text-right">
+                      <input data-toggle='modal' href='#form-content' value='Process All' class='btn btn-lg btn-primary' id="lockAllItem" type='button' />
+                </div>
+                <?php } ?>
                 <table id="service_table" class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr>
@@ -137,10 +142,41 @@
                 table.ajax.reload(); }
 
             });
-        
+
 
     });
-      });
+    });
+
+    // Process All Button Click Function Start
+    $( "#lockAllItem" ).click(function() {
+
+      var action = 3;
+      var request="processAll";
+      $.ajax({
+          url:'../controller/dc_request.php?request='+request+'&action='+action+'&cust_id=',
+          success:function(result){
+
+            BootstrapDialog.show({
+                  size: BootstrapDialog.SIZE_LARGE,
+                  message: 'Processed!',
+                  buttons: [ {
+                      label: 'Close',
+                      action: function(dialogItself){
+                          dialogItself.close();
+                      }
+                  }]
+              });
+              table.ajax.reload();
+            }
+
+          });
+
+
+  });
+  // Process All Button Click Function End
+
+
+
 });
 </script>
 

@@ -1,9 +1,9 @@
 <?php
 require("../model/login_config.php");
-if(empty($_SESSION['user'])) 
+if(empty($_SESSION['user']))
 {
     header("Location: ../index.php");
-    die("Redirecting to ../index.php"); 
+    die("Redirecting to ../index.php");
 }
 ?>
 <!DOCTYPE html>
@@ -14,7 +14,7 @@ if(empty($_SESSION['user']))
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/ico" href="assets/images/favicon.ico"></link> 
+	<link rel="icon" type="image/ico" href="assets/images/favicon.ico"></link>
 	<link rel='shortcut icon' type='image/x-icon' href='assets/images/favicon.ico' />
     <meta name="description" content="Jquery Admin Panel">
     <meta name="author" content="Wael Ali">
@@ -23,13 +23,12 @@ if(empty($_SESSION['user']))
 
     <!-- Bootstrap Core CSS -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="assets/css/sb-admin.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
     <link href="assets/css/plugins/morris.css" rel="stylesheet">
-    
+
     <link href="assets/css/main.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
@@ -37,6 +36,10 @@ if(empty($_SESSION['user']))
     <link href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap2-toggle.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/css/bootstrap-dialog.min.css" rel="stylesheet">
+
+
+    <link href="assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen" >
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -65,13 +68,13 @@ if(empty($_SESSION['user']))
                 </div>
                 <!-- Top Menu Items -->
                 <ul class="nav navbar-right top-nav">
-                    
-                    
+
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo htmlentities($_SESSION['user']['username'], ENT_QUOTES, 'UTF-8'); ?> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                         
-                            
+
+
                             <li>
                                 <a href="login/logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                             </li>
@@ -96,7 +99,7 @@ if(empty($_SESSION['user']))
                         <li >
                             <a href="followup.php"><i class="fa fa-fw fa-phone"></i> Follow-ups</a>
                         </li>
-                        
+
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->

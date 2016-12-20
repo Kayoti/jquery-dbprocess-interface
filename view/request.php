@@ -29,12 +29,15 @@
 				<table id="service_table" class="table table-bordered table-hover table-striped">
 					<thead>
 						<tr>
+							<th>Created Date</th>
 							<th>First Name</th>
 							<th>Last Name</th>
 							<th>Email</th>
+							<th>EMT Amount</th>
 							<th>EMT Status</th>
 							<th>INFO Status</th>
 							<th>CONTRACT Status</th>
+							<th>Lead Status</th>
 							<th></th>
 							<th></th>
 						</tr>
@@ -47,7 +50,16 @@
 		</div>
 		<!-- /.row -->
 
-		<?php include ('includes/info_form.php'); ?>
+		<?php
+		if($_SESSION['user']['level'] == 1){
+			include ('includes/info_form.php');
+
+		}else{
+			include ('includes/info_form_readonly.php');
+		}
+
+
+		?>
 
 
 
@@ -94,15 +106,29 @@
 			"url": "../controller/page_request.php?request="+param.request+"&action="+param.action,
 		},
 		columns: [
+		{ data: 'createdOn' },
 		{ data: 'firstname' },
 		{ data: 'lastname' },
 		{ data: 'email' },
+		{ data: 'initloadamount' },
 		{ data: 'emt' },
 		{ data: 'personal' },
 		{ data: 'contract' },
+		{ data: 'leadstatus' },
 		{ data: 'button1' }
 		]
 	});
+
+	/*$('.form_date').datetimepicker({
+				language:  'en',
+				weekStart: 1,
+				todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 4,
+		minView: 2,
+		forceParse: 0
+	}); */
 
 	/***
 		Event triggers customer information display
@@ -153,6 +179,8 @@
 							$("#emt").val(obj1.initloadamount);
 							$("#emt_pass").val(obj1.psw);
 							//info
+
+							$("#createdDate").html(obj1.createdOn);
 							$("#tag").val(obj1.cust_id);
 							$("#firstname").val(obj1.firstname);
 							//$("#middleName").val(obj1.midname);
@@ -167,6 +195,7 @@
 							$("#occupation").val(obj1.occupationID);
 							$("#mmn").val(obj1.motherInfo);
 							$("#agent").val(obj1.agent);
+							$("#leadstatus").val(obj1.leadstatus);
 							//address
 							$("#lane").val(obj1.line1);
 							$("#laneTwo").val(obj1.line2);
@@ -188,18 +217,21 @@
 							$("#sid_expire").val(obj1.sexpire);
 							//status dropdowns
 
+							//contract
+							var filepath="http://canadacreditcard.ca/docs/pdfs/";
+							var ccpdfname=obj1.lastname+"_"+obj1.firstname;
+							var ccagreementfile=filepath+ccpdfname+"/"+ccpdfname+"_CC_Agreement.pdf";
+							$("#ccagreement").html('<a href="'+ccagreementfile+'" target="_blank">CC Agreement</a>');
 
-
-
-
-
+							var ilockagreementfile=filepath+ccpdfname+"/"+ccpdfname+"_iLock_Agreement.pdf";
+							$("#ilockagreement").html('<a href="'+ilockagreementfile+'" target="_blank">Identity Lock Agreement</a>');
 
 							$("#audit_emt").val(obj1.emt_id);
 							if(obj1.emt_id==12){$('#emt_checkbox').bootstrapToggle('on')}else{$('#emt_checkbox').bootstrapToggle('off')}
 								$("#audit_info").val(obj1.info_id);
 							if(obj1.info_id==6){$('#info_checkbox').bootstrapToggle('on')}else{$('#info_checkbox').bootstrapToggle('off')}
 								$("#audit_contract").val(obj1.contract_id);
-							if(obj1.contract_id==18){$('#audit_checkbox').bootstrapToggle('on')}else{$('#audit_checkbox').bootstrapToggle('off')}
+							if(obj1.contract_id==18){$('#contract_checkbox').bootstrapToggle('on')}else{$('#contract_checkbox').bootstrapToggle('off')}
 
 								$("#comments_area").html(obj1.COMMENT);
 							//status checkbox this.prop('checked')
@@ -259,7 +291,7 @@ $('.submit_info').live('click', function(event){
 
 		var action=0;
 		var request="edit";
-			//alert($('#info_form').serialize());
+			console.log($('#info_form').serialize());
 			$.ajax({
 				url:'../controller/page_request.php?request='+request+'&action='+action,
 				data:$('#info_form').serialize(),
@@ -309,6 +341,26 @@ $(window).bind('beforeunload',function(locked){
 		}
 	});
 });
+
+$("#leadText").html('');
+if( $( '#leadstatus' ).length > 0 ) {
+	$('#leadstatus').change(function() {
+
+		cust_id=$("#tag").val();
+
+		$.ajax({
+			url:'../controller/update_leadstatus.php?leadstatus='+$(this).val()+'&custID='+cust_id,
+			success:function(result){
+
+				var text='<span style="color:red;">Lead Status Changed  to '+ result +' Successfully !!!</span>';
+				$("#leadText").html(text);
+
+			}
+
+		});
+
+	});
+}
 
 </script>
 

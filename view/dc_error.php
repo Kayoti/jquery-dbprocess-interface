@@ -9,20 +9,20 @@
 				<h1 class="page-header">
 					Errors <small>New DCBANK Errors List</small>
 				</h1>
-				
+
 			</div>
 		</div>
 		<!-- /.row -->
 
-		
+
 		<div class="row">
-			
+
 			<div class="col-lg-12">
-				
+
 				<div class="table-responsive">
 					<ol class="breadcrumb">
 						<li class="active">
-							<i class="fa fa-table"></i> 
+							<i class="fa fa-table"></i>
 						</li>
 					</ol>
 				</div>
@@ -42,14 +42,14 @@
 					<tbody id="tbody">
 					</tbody>
 				</table>
-				
+
 			</div>
 		</div>
 		<!-- /.row -->
-		
+
 		<?php include ('includes/info_form.php'); ?>
-		
-		
+
+
 
 	</div>
 	<!-- /.container-fluid -->
@@ -79,28 +79,28 @@
 		}
 	//table request object
 	var param= new tablerequest();
-	
+
 	//GLOBAL
 	var result;
 	var table;
 	var cust_id;
 	var locked = 0;
 
-	
+
 	table=$('#service_table').DataTable({
-		
+
 		"processing": true,
 		"ajax": {
 			"url": "../controller/page_request.php?request="+param.request+"&action="+param.action,
 		},
 		columns: [
-		{ data: 'firstname' },  
+		{ data: 'firstname' },
 		{ data: 'lastname' },
-		{ data: 'email' },  
-		{ data: 'emt' },  
-		{ data: 'personal' },  
-		{ data: 'contract' },  
-		{ data: 'button1' } 
+		{ data: 'email' },
+		{ data: 'emt' },
+		{ data: 'personal' },
+		{ data: 'contract' },
+		{ data: 'button1' }
 		]
 	});
 
@@ -115,42 +115,44 @@
 			//make sure no white space is before or after id value
 			$.trim(cust_id);
 			var request="review";
-			//Status=DC ERROR 
+			//Status=DC ERROR
 			var action=1;
-			
+
 			$.ajax({
 				url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
-				
+
 				success:function(result){
 					var obj1 = $.parseJSON(result);
 						//Load Dropdown Options
 						var options = '<option title="" value="0">--EMT STATUS--</option>';
-						
+
 						for (var i = 0; i < obj1.EAL.length; i++) {
 							options += '<option value="' + obj1.EAL[i].ps_id + '">' + obj1.EAL[i].display + '</option>';
 						}
-						$("#audit_emt").html(options); 
+						$("#audit_emt").html(options);
 						var options = '<option title="" value="0">--INFO STATUS--</option>';
-						
+
 						for (var i = 0; i < obj1.IAL.length; i++) {
 							options += '<option value="' + obj1.IAL[i].ps_id + '">' + obj1.IAL[i].display + '</option>';
 						}
-						$("#audit_info").html(options); 
+						$("#audit_info").html(options);
 						var options = '<option title="" value="0">--CONTRACT STATUS--</option>';
 						for (var i = 0; i < obj1.CAL.length; i++) {
 							options += '<option value="' + obj1.CAL[i].ps_id + '">' + obj1.CAL[i].display + '</option>';
 						}
-						$("#audit_contract").html(options); 
-						
+						$("#audit_contract").html(options);
+
 						if(obj1.islocked == 0)
 						{
 							//Populate fields
 							//CUSTOMER ID
-							
+
 							//banking
-							$("#emt").val(obj1.initloadamount); 
-							$("#emt_pass").val(obj1.psw); 
+							$("#emt").val(obj1.initloadamount);
+							$("#emt_pass").val(obj1.psw);
+
 							//info
+							$("#createdDate").html(obj1.createdOn);
 							$("#tag").val(obj1.cust_id);
 							$("#firstname").val(obj1.firstname);
 							//$("#middleName").val(obj1.midname);
@@ -173,30 +175,38 @@
 							$("#code").val(obj1.PostalCode);
 							//ID
 							//PID
-							
+
 							$("#pid_type").val(obj1.ptype);
 							$("#pid_num").val(obj1.pnumber);
 							$("#pid_place").val(obj1.pplace);
 							$("#pid_expire").val(obj1.pexpire);
-							
+
 							//SID
 							$("#sid_type").val(obj1.stype);
 							$("#sid_num").val(obj1.snumber);
 							$("#sid_place").val(obj1.splace);
 							$("#sid_expire").val(obj1.sexpire);
-							//status dropdowns 
-							
-							
-							//$("#audit_contract").val(obj1.contract_id);
-							
-							
-							
+							//status dropdowns
+
+
+							//contract
+							var filepath="http://canadacreditcard.ca/docs/pdfs/";
+							var ccpdfname=obj1.lastname+"_"+obj1.firstname;
+							var ccagreementfile=filepath+ccpdfname+"/"+ccpdfname+"_CC_Agreement.pdf";
+							$("#ccagreement").html('<a href="'+ccagreementfile+'" target="_blank">CC Agreement</a>');
+
+							var ilockagreementfile=filepath+ccpdfname+"/"+ccpdfname+"_iLock_Agreement.pdf";
+							$("#ilockagreement").html('<a href="'+ilockagreementfile+'" target="_blank">Identity Lock Agreement</a>');
+
+
+
 							 //if(obj1.contract_id==18){$('#contract_checkbox').bootstrapToggle('on')}else{$('#contract_checkbox').bootstrapToggle('off')}
 							 $("#audit_emt").val(obj1.emt_id);
 							 if(obj1.emt_id==12){$('#emt_checkbox').bootstrapToggle('on')}else{$('#emt_checkbox').bootstrapToggle('off')}
 							 	$("#audit_info").val(obj1.info_id);
 							 if(obj1.info_id==6){$('#info_checkbox').bootstrapToggle('on')}else{$('#info_checkbox').bootstrapToggle('off')}
-							 if(obj1.contract_id==18){$('#audit_checkbox').bootstrapToggle('on')}else{$('#audit_checkbox').bootstrapToggle('off')}
+							 $("#audit_contract").val(obj1.contract_id);
+							 if(obj1.contract_id==18){$('#contract_checkbox').bootstrapToggle('on')}else{$('#contract_checkbox').bootstrapToggle('off')}
 							//status checkbox this.prop('checked')
 							//
 							$("#comments_area").html(obj1.COMMENT);
@@ -207,60 +217,60 @@
 							alert("sorry this record is locked");
 							$( ".lockedbtn" ).trigger( "click" );
 							table.ajax.reload();
-							
+
 							//
 						}
 					}
-				}); 
+				});
 
 
-event.preventDefault();	
+event.preventDefault();
 });
 $('#audit_emt').change(function(){
 	if($('#audit_emt').val() == 12) {
 		$('#emt_checkbox').bootstrapToggle('on')
 	} else {
 		$('#emt_checkbox').bootstrapToggle('off')
-	} 
-}); 
+	}
+});
 $('#audit_info').change(function(){
 	if($('#audit_info').val() == 6) {
 		$('#info_checkbox').bootstrapToggle('on')
 	} else {
 		$('#info_checkbox').bootstrapToggle('off')
-	} 
-}); 
+	}
+});
 
 $('#audit_contract').change(function(){
 	if($('#audit_contract').val() == 18) {
 		$('#contract_checkbox').bootstrapToggle('on')
 	} else {
 		$('#contract_checkbox').bootstrapToggle('off')
-	} 
-}); 
+	}
+});
 
 $(".lockedbtn").live('click', function(event){
 		//Status=DCERROR must be used but has no effect here
-		
+
 		var action=1;
 		var request="list";
 		$.ajax({
 			url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
 			success:function(result){table.ajax.reload();}
-			
-		}); 
-	});	
+
+		});
+	});
 $('.submit_info').live('click', function(event){
 	var action=0;
 		var request="edit";
 	notie.confirm('Confirm?', 'Yes', 'Cancel', function() {
 		notie.alert(1, 'Done!', 2);
-		
+
 			//alert($('#info_form').serialize());
 			$.ajax({
 				url:'../controller/page_request.php?request='+request+'&action='+action,
 				data:$('#info_form').serialize(),
-				success:function(result){ 
+				success:function(result){
 					BootstrapDialog.show({
 						size: BootstrapDialog.SIZE_LARGE,
 						message: 'Done!',
@@ -271,26 +281,26 @@ $('.submit_info').live('click', function(event){
 							}
 						}]
 					});
-					
+
 					table.ajax.reload();
-					
+
 				}
-				
+
 			});
 		});
 	event.preventDefault();
-}); 
+});
 $(".exit").live('click', function(event){
 		//Status=unlock = 0
-		
+
 		var action=0;
 		var request="unlock_app";
 		$.ajax({
 			url:'../controller/page_request.php?request='+request+'&action='+action+'&cust_id='+cust_id,
 			success:function(result){table.ajax.reload();}
-			
+
 		});
-	});	
+	});
 $("#add_comment").live('click', function(event){
 		//Status=NEW APP must be used but has no effect here
 		var action=0;
@@ -302,18 +312,18 @@ $("#add_comment").live('click', function(event){
 				table.ajax.reload();
 
 			}
-			
+
 		});
 	});
 $(window).bind('beforeunload',function(locked){
 		//do something
 		if(locked)
-		{		
-			
+		{
+
 			$( ".exit" ).trigger( "click" );
 			return 'are you sure you want to leave?';
 		}
-	});	
+	});
 });
 
 </script>
